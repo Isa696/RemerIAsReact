@@ -65,13 +65,16 @@
 }
 .add-cart_btn {
   border: none;
-  background-color: black;
+  background-color: var(--dark-magenta);
   color: white;
   padding: 6px 10px;
   font-size: 1.4rem;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .add-cart_btn:hover {
   background-color: #1a1a1a;
@@ -80,4 +83,10 @@
 
 .product-card_price {
   font-size: 1.8rem;
+}
+
+.ml-logo {
+  width: 48px;
+  height: 32px;
+  object-fit: contain;
 }

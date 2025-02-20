@@ -22,7 +22,11 @@ function ProductView({ productData }) {
         <p className="product-description">{productData.description}</p>
 
         <button className="product-cart_btn" onClick={handleAddToCart}>
-          Add to Cart
+          Ir a
+          <img
+            src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadolibre/favicon.svg"
+            className="ml-logo"
+          />
         </button>
       </div>
     </div>

@@ -23,7 +23,11 @@ function ProductCard({ product }) {
         <p>{product?.description}</p>
         <span className="product-card_bottom">
           <button className="add-cart_btn" onClick={handleAddToCart}>
-            Add to Cart
+          Ir a
+          <img
+            src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadolibre/favicon.svg"
+            className="ml-logo"
+          />
           </button>
           <b className="product-card_price">${product?.price}</b>
         </span>
