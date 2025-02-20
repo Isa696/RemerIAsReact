@@ -10,11 +10,7 @@ function HomeInfo() {
         Santería “El Paraíso”
         </h2>
         <p>
-        Es una tienda multireligiosa con mas de 15 años de trayectoria en la
-        ciudad de General Pacheco.<br />Reconocida en la zona por el amplio surtido de productos religiosos,
-esotéricos, holísticos, aromáticos, de decoración y por tener el precio mas
-bajo en artículos de parafina, además de la variedad de colores, formas y
-tamaños.
+        Somos tienda multireligiosa con más de 15 años de trayectoria en la ciudad de General Pacheco. 📿🕯️<br />Reconocida en la zona por el amplio surtido de productos religiosos 🕉️, esotéricos ✨, holísticos 🌿, aromáticos 🕯️ y de decoración 🎨, y por tener el precio más bajo en artículos de parafina 🛍️, además de la variedad de colores 🎨, formas 🔷 y tamaños 📏.
         </p>
       </div>
       <button className="explore-clothing_btn">

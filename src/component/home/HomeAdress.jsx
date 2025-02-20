@@ -13,7 +13,7 @@ function HomeAdress() {
         Donde estamos?
         </h2>
         <p>
-        Ubicada sobre la avenida principal del centro comercial del barrio “Las tunas”. <br />📍Av. Constituyentes 3142, General Pacheco, Tigre.
+        Ubicada sobre la avenida principal del centro comercial del barrio “Las tunas”. <br /><br />📍Av. Constituyentes 3142, General Pacheco, Tigre.
         </p>
       </div>
       <button className="explore-clothing_btn">
