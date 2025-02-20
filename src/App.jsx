@@ -12,7 +12,7 @@ import RootLayout from "./layout/RootLayout";
 import Home from "./pages/Home";
 import ExploreProduct from "./pages/ExploreProducts";
 import Product from "./pages/Product";
-import Checkout from "./pages/Checkout";
+// import Checkout from "./pages/Checkout";
 
 // react toast
 import { Toaster } from "react-hot-toast";
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/explore/:category" element={<ExploreProduct />}></Route>
       <Route path="/product/:productId" element={<Product />}></Route>
-      <Route path="/checkout" element={<Checkout />}></Route>
+      {/* <Route path="/checkout" element={<Checkout />}></Route> */}
     </Route>
   )
 );

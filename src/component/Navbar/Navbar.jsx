@@ -53,12 +53,6 @@ function Navigations({ toggleShowCart }) {
           <NavLink to="/">Inicio</NavLink>
         </li>
         <li className="nav-link">
-          <NavLink to="/explore/men">Men</NavLink>
-        </li>
-        <li className="nav-link">
-          <NavLink to="/explore/women">Women</NavLink>
-        </li>
-        <li className="nav-link">
           <NavLink to="/explore/all">Ver todo</NavLink>
         </li>
       </ul>
@@ -68,7 +62,7 @@ function Navigations({ toggleShowCart }) {
         <span></span>
       </div>
       <div className="nav-secondary">
-        <CartButton toggleShowCart={toggleShowCart} />
+        {/* <CartButton toggleShowCart={toggleShowCart} /> */}
       </div>
       <div className="nav-overlay"></div>
     </nav>
