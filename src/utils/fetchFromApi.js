@@ -8,6 +8,15 @@ async function fetchFromApi(path) {
   const data = await res.json();
   return data;
 }
+const MlUrl = "https://api.mercadolibre.com/sites/MLA/";
+const pathMl = "search?seller_id=277820846";
 
-console.log("https://api.mercadolibre.com/sites/MLA/search?seller_id=116088")
+async function fetchFromML(pathMl) {
+  const res = await fetch(`${MlUrl}/${pathMl}`);
+  const dataMl = await res.json();
+  console.log(dataMl);
+  return dataMl;
+}
+
+fetchFromML(pathMl);
 export default fetchFromApi;
