@@ -2,12 +2,17 @@ import React from "react";
 import HomePhotoShoot from "./HomePhotoShoot";
 import HomeInfo from "./HomeInfo";
 import "./HomeMain.css";
+import HomeAdress from "./HomeAdress";
 
 function HomeMain() {
   return (
-    <main className="home-main container">
+    <main>
+
+    <section className="home-main container">
       <HomeInfo />
       <HomePhotoShoot />
+    </section>
+      <HomeAdress />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
 import SlidingCart from "./SlidingCart";
 import "./Navbar.css";
+import logoNav from "../../assets/images/logo-nav.jpg";
 
 function Navbar() {
   const [showCart, setShowCart] = useState(false);
@@ -44,12 +45,12 @@ function Navigations({ toggleShowCart }) {
 
   return (
     <nav className={`nav container ${isNavOpen ? "nav-open" : ""}`}>
-      <span className="brand-name">
-        <Link to="/">Ace Store</Link>
-      </span>
+        <Link to="/">
+          <img src={logoNav} alt="Santeria el paraiso" className="brand-name" />
+          </Link>
       <ul className="nav-link_container">
         <li className="nav-link">
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/">Inicio</NavLink>
         </li>
         <li className="nav-link">
           <NavLink to="/explore/men">Men</NavLink>
@@ -58,7 +59,7 @@ function Navigations({ toggleShowCart }) {
           <NavLink to="/explore/women">Women</NavLink>
         </li>
         <li className="nav-link">
-          <NavLink to="/explore/all">Explore All</NavLink>
+          <NavLink to="/explore/all">Ver todo</NavLink>
         </li>
       </ul>
       <div className="nav-secondary_btn" onClick={handleOpenNavigation}>

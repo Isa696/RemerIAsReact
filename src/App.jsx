@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout";
 
 // react toast
 import { Toaster } from "react-hot-toast";
+import FloatingWhatsApp from "./component/FloatingWhatsApp";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <FloatingWhatsApp />
       <Toaster
         toastOptions={{
           style: {

@@ -30,12 +30,11 @@
   z-index: 99;
   display: none;
 }
-.brand-name,
-.nav-link,
-.nav-link span {
-  font-weight: 600;
+.brand-name {
   cursor: pointer;
   position: relative;
+  z-index: 999;
+  width: 100px;
 }
 
 .cart-icon {

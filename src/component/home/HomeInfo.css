@@ -1,5 +1,3 @@
-.info-txt {
-}
 .info-txt h2 {
   font-size: clamp(3.4rem, 4vw + 1rem, 5.2rem);
   font-family: "Bebas Neue", sans-serif;
@@ -12,7 +10,7 @@
 }
 .explore-clothing_btn {
   margin-top: 26px;
-  background-color: black;
+  background-color: var(--dark-magenta);
   border: none;
   border-radius: 8px;
   a {
