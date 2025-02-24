@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAYcRqm7QzRWhjdCqmbWkeJ14OIWK-rvWw",
-  authDomain: "santeria-paraiso.firebaseapp.com",
-  databaseURL: "https://santeria-paraiso-default-rtdb.firebaseio.com",
-  projectId: "santeria-paraiso",
-  storageBucket: "santeria-paraiso.firebasestorage.app",
-  messagingSenderId: "565464658079",
-  appId: "1:565464658079:web:11c8a57d2d2e29896372aa"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
