@@ -10,7 +10,7 @@ function SelectCategory({ checkBoxState, handleCheckBox }) {
 
   return (
     <div className="select-category_container">
-      <h4 onClick={handleCategoryClick}>Category</h4>
+      <h4 onClick={handleCategoryClick}>Categorias</h4>
       <div className={isOpen ? "open" : ""}>
         <span className="category-option">
           <input

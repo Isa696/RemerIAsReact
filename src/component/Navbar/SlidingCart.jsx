@@ -26,7 +26,7 @@ function CartTop({ toggleShowCart }) {
   return (
     <div className="cart-top">
       <ShoppingCart size={22} />
-      <h2>Your Shopping Carts</h2>
+      <h2>Tu carrito</h2>
       <div className="close-shopping-cart" onClick={toggleShowCart}>
         <X size="22px" />
       </div>
@@ -50,7 +50,7 @@ function CartMain({ cart, addProductQuantity, removeFromCart }) {
     <div className="cart-main_container">
       {products.length < 1 ? (
         <div style={{ textAlign: "center", fontSize: "1.6rem" }}>
-          Your cart is empty :({" "}
+          Tu carrito esta vacio :({" "}
         </div>
       ) : (
         products
@@ -66,7 +66,7 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
 
   function removeProduct() {
     removeFromCart(product.id);
-    toast.error("Removed from Cart ");
+    toast.error("Eliminado del carrito");
   }
 
   return (
@@ -74,9 +74,9 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
       <img src={product.image} />
       <div className="cart-product_info">
         <h3>{product.title}</h3>
-        <p>Category: {product.category}</p>
+        <p>Categoría: {product.category}</p>
         <p className="qty">
-          Qty:
+          Cantidad:
           <input
             type="number"
             value={product.qty}
@@ -102,10 +102,10 @@ function CartCheckOut({ cart, toggleShowCart }) {
 
   return (
     <div className="cart-checkout_container">
-      <h3>Checkout</h3>
+      <h3>Precio Total</h3>
       <p>${totalPrice.toFixed(2)}</p>
       <Link to="checkout" onClick={toggleShowCart}>
-        Go to Checkout
+        Ir a Checkout
       </Link>
     </div>
   );

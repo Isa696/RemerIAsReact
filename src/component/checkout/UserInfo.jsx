@@ -1,9 +1,8 @@
-import React from "react";
 import { useCartActions } from "../../store/Store";
 import { useCart } from "../../store/Store";
 import "./UserInfo.css";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function UserInfo() {
   return (
@@ -17,7 +16,7 @@ function UserInfo() {
 function ContactInformation() {
   return (
     <div className="contact-info_container">
-      <h3>Contact Information</h3>
+      <h3>Información de Contacto</h3>
       <input type="email" placeholder="Email" />
     </div>
   );
@@ -31,32 +30,32 @@ function ShippingAddress() {
 
   function checkoutHandler() {
     if (cart.length < 1) {
-      toast.error("Your shopping list is Emtpy");
+      toast.error("No hay productos.");
       return;
     }
     let totalPrice = cart.reduce((acc, cur) => {
       return acc + cur.qty * cur.price;
     }, 0);
     if (totalPrice < 1) {
-      toast.error("Cannot process order value of zero(0).");
+      toast.error("No hay productos.");
       return;
     }
 
     emptyCart();
-    toast.success("Checked out");
+    toast.success("Compra exitosa :D");
     navigate("/");
   }
 
   return (
     <div className="shipping-address_container">
-      <h3>Shipping Address</h3>
+      <h3>Dirección de Entrega</h3>
       <div className="shipping-address_wrapper">
-        <input type="name" placeholder="First name" id="firstname" />
-        <input type="name" placeholder="Last name" id="lastname" />
-        <input type="name" placeholder="Address" id="address" />
-        <input type="name" placeholder="City" id="city" />
+        <input type="name" placeholder="Nombre" id="firstname" />
+        <input type="name" placeholder="Apellido" id="lastname" />
+        <input type="name" placeholder="Dirección" id="address" />
+        <input type="name" placeholder="Ciudad" id="city" />
         <button className="checkout-btn" onClick={checkoutHandler}>
-          Checkout
+          Comprar
         </button>
       </div>
     </div>

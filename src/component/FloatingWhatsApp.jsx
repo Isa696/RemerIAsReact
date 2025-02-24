@@ -1,6 +1,7 @@
 import { WhatsappLogo } from "phosphor-react";
 import { useEffect, useState } from "react";
 import "./FloatingWhatsApp.css";
+import { whatsAppUrl } from "../utils/whatsAppMsg";
 
 function FloatingWhatsApp() {
 
@@ -17,15 +18,6 @@ function FloatingWhatsApp() {
 
         return () => clearTimeout(timer);
     }, []);
-    const phoneNumber = "+541136945870";
-    const message = "Hola!🌟 Vengo del sitio Web.✨ Quiero hacer una consulta 😊";
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Detectar si es móvil o desktop
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const url = isMobile
-        ? `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
-        : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
 
     return (
         <div className="whatsapp-container">
@@ -35,7 +27,7 @@ function FloatingWhatsApp() {
             </div>
         )}
         <a
-            href={url}
+            href={whatsAppUrl}
             className="floating-whatsapp"
             target="_blank"
             rel="noopener noreferrer"

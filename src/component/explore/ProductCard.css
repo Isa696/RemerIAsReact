@@ -77,16 +77,10 @@
   gap: 8px;
 }
 .add-cart_btn:hover {
-  background-color: #1a1a1a;
   scale: 1.02;
+  background-color: var(--yellow-green);
 }
 
 .product-card_price {
   font-size: 1.8rem;
-}
-
-.ml-logo {
-  width: 48px;
-  height: 32px;
-  object-fit: contain;
 }

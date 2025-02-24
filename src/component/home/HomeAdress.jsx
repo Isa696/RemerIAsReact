@@ -1,6 +1,7 @@
 import "./HomeInfo.css";
 import"./HomeAdress.css";
 import "./HomeMain.css";
+import {whatsAppUrl} from "../../utils/whatsAppMsg"
 
 function HomeAdress() {
   return (
@@ -17,8 +18,11 @@ function HomeAdress() {
         </p>
       </div>
       <button className="explore-clothing_btn">
-        <a href="">
-        Contactanos
+        <a          href={whatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Contactarnos por WhatsApp">
+        Contactanos!!!
         </a>
       </button>
         </article>

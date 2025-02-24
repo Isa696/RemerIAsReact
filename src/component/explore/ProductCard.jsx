@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCartActions } from "../../store/Store";
 import "./ProductCard.css";
+import { ShoppingCart } from "phosphor-react";
 
 function ProductCard({ product }) {
   let { addToCart } = useCartActions();
 
   function handleAddToCart() {
     addToCart(product);
-    toast.success("Added to Cart");
+    toast.success("Añadido al carrito");
   }
 
   return (
@@ -23,11 +24,8 @@ function ProductCard({ product }) {
         <p>{product?.description}</p>
         <span className="product-card_bottom">
           <button className="add-cart_btn" onClick={handleAddToCart}>
-          Ir a
-          <img
-            src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadolibre/favicon.svg"
-            className="ml-logo"
-          />
+          Agregar al
+          <ShoppingCart size={22} />
           </button>
           <b className="product-card_price">${product?.price}</b>
         </span>

@@ -77,11 +77,6 @@
   background-color: var(--yellow-green);
 }
 
-.ml-logo {
-  width: 48px;
-  height: 32px;
-  object-fit: contain;
-}
 @media (max-width: 800px) {
   .product-container {
     --image-wrapper-width: 80%;

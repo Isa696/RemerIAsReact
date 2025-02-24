@@ -30,34 +30,18 @@ function ExploreProduct() {
 
   useEffect(() => {
     async function getData() {
-      let res = await fetchFromApi("products");
-      function getFilteredData() {
-        // if both men and women checkbox are not true than load both men's and women's clothing
-        // we are filtering this since the default request also provide result for category that we don't want
-        if (!checkBoxState.men && !checkBoxState.women) {
-          let filteredData = res.filter((product) => {
-            return (
-              product.category === "men's clothing" ||
-              product.category === "women's clothing"
-            );
-          });
-          return filteredData;
+      try {
+        const res = await fetchFromApi("products");
+        if (Array.isArray(res)) {
+          setProducts(res);
+        } else {
+          console.error("Data is not an array:", res);
+          setProducts([]);
         }
-
-        let filteredData = res.filter((product) => {
-          if (checkBoxState.men && product.category === "men's clothing") {
-            return product;
-          } else if (
-            checkBoxState.women &&
-            product.category === "women's clothing"
-          ) {
-            return product;
-          }
-        });
-        return filteredData;
+      } catch (error) {
+        console.error("Error loading products:", error);
+        setProducts([]);
       }
-      setProducts(getFilteredData());
-      setPriceFilter("default");
     }
     getData();
   }, [checkBoxState]);
