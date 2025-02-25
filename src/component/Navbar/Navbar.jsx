@@ -5,6 +5,8 @@ import { ShoppingCart } from "phosphor-react";
 import SlidingCart from "./SlidingCart";
 import "./Navbar.css";
 import logoNav from "../../assets/images/logo-nav.jpg";
+import useUserStore from "../../store/User";
+import toast from "react-hot-toast";
 
 function Navbar() {
   const [showCart, setShowCart] = useState(false);
@@ -38,6 +40,18 @@ function CartButton({ toggleShowCart }) {
 
 function Navigations({ toggleShowCart }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const logout = useUserStore(state => state.logout);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem("user-storage");
+      toast.success("Sesión cerrada exitosamente");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      toast.error("Error al cerrar sesión");
+    }
+  };
 
   function handleOpenNavigation() {
     setIsNavOpen(!isNavOpen);
@@ -51,11 +65,26 @@ function Navigations({ toggleShowCart }) {
           </NavLink>
       </span>
       <ul className="nav-link_container">
-        <li className="nav-link">
+        <li className="nav-link"
+          onClick={() => setIsNavOpen(false)}
+          >
           <NavLink to="/">Inicio</NavLink>
         </li>
-        <li className="nav-link">
-          <NavLink to="/explore/all">Ver todo</NavLink>
+        <li className="nav-link"
+            onClick={() => setIsNavOpen(false)}
+          >
+          <NavLink to="/explore/all">Productos</NavLink>
+        </li>
+        <li className="nav-link"
+            onClick={() => setIsNavOpen(false)}
+          >
+   {JSON.parse(localStorage.getItem("user-storage"))?.state?.user?.email ? (
+    <NavLink to="/login"
+      onClick={handleLogout}
+      >Cerrar Sesión</NavLink>
+  ) : (
+    <NavLink to="/login">Iniciar Sesión</NavLink>
+  )}
         </li>
       </ul>
       <div className="nav-secondary_btn" onClick={handleOpenNavigation}>

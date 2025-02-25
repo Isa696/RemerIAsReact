@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../component/explore/ProductCard";
 import fetchFromApi from "../utils/fetchFromApi";
+import fetchCategories from "../utils/fetchCategories";
 import SelectCategory from "../component/explore/SelectCategory";
 import PriceFilter from "../component/explore/PriceFilter";
 import "./ExploreProducts.css";
@@ -10,30 +11,60 @@ import Shimmer from "../component/shimmer/Shimmer";
 function ExploreProduct() {
   const [products, setProducts] = useState([]);
   const [priceFlter, setPriceFilter] = useState("default");
-  const [checkBoxState, setCheckBoxState] = useState({
-    men: false,
-    women: false,
-  });
+  const [categories, setCategories] = useState([]);
+  const [checkBoxState, setCheckBoxState] = useState({});
   let { category } = useParams();
-
+  // Fetch categories and set initial state
   useEffect(() => {
-    let resetCheckBoxState = {
-      men: false,
-      women: false,
+    const getCategories = async () => {
+      const fetchedCategories = await fetchCategories();
+      setCategories(fetchedCategories);
+      
+      // Initialize checkBoxState with all categories set to false
+      const initialCheckBoxState = fetchedCategories.reduce((acc, cat) => {
+        acc[cat.toLowerCase()] = false;
+        return acc;
+      }, {});
+      setCheckBoxState(initialCheckBoxState);
     };
+    getCategories();
+  }, []);
+
+    // Handle category from URL params
+  useEffect(() => {
+    if (!categories.length) return;
+
+    const resetCheckBoxState = categories.reduce((acc, cat) => {
+      acc[cat.toLowerCase()] = false;
+      return acc;
+    }, {});
+
     if (category === "all") {
       setCheckBoxState(resetCheckBoxState);
       return;
     }
     setCheckBoxState({ ...resetCheckBoxState, [category]: true });
-  }, [category]);
+  }, [category, categories]);
 
   useEffect(() => {
     async function getData() {
       try {
         const res = await fetchFromApi("products");
         if (Array.isArray(res)) {
-          setProducts(res);
+          // Filter products based on selected categories
+          const filteredProducts = res.filter(product => {
+            const selectedCategories = Object.entries(checkBoxState)
+              .filter(([_, isChecked]) => isChecked)
+              .map(([category]) => category);
+
+            // If no categories selected, show all products
+            if (selectedCategories.length === 0) return true;
+
+            // Return products that match selected categories
+            return selectedCategories.includes(product.category.toLowerCase());
+          });
+
+          setProducts(filteredProducts);
         } else {
           console.error("Data is not an array:", res);
           setProducts([]);
@@ -47,8 +78,8 @@ function ExploreProduct() {
   }, [checkBoxState]);
 
   function handleCategoryCheckBox(e) {
-    let { name, checked } = e.target;
-    setCheckBoxState({ ...checkBoxState, [name]: checked });
+    const { name, checked } = e.target;
+    setCheckBoxState(prev => ({ ...prev, [name]: checked }));
   }
 
   function handlePriceFilter(e) {
@@ -77,6 +108,7 @@ function ExploreProduct() {
       <SelectCategory
         checkBoxState={checkBoxState}
         handleCheckBox={handleCategoryCheckBox}
+        categories={categories}
       />
       <div className="products-container">
         <AllProducts products={products} />
