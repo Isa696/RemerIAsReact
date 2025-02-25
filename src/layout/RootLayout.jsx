@@ -1,11 +1,14 @@
+import AuthWrapper from "../component/auth/AuthWrapper";
 import Navbar from "../component/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
 function RootLayout() {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <AuthWrapper>
+        <Navbar />
+        <Outlet />
+      </AuthWrapper>
     </>
   );
 }

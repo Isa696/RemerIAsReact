@@ -18,9 +18,10 @@
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
-.shipping-address_wrapper {
+.shipping-address_wrapper,
+.contact-info_wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-wrap: wrap;
   --gap: 20px;
   gap: var(--gap);

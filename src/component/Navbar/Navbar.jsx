@@ -40,12 +40,14 @@ function CartButton({ toggleShowCart }) {
 
 function Navigations({ toggleShowCart }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const logout = useUserStore(state => state.logout);
+  const { logout, user } = useUserStore(state => ({
+    logout: state.logout,
+    user: state.user
+  }));
 
   const handleLogout = async () => {
     try {
       await logout();
-      localStorage.removeItem("user-storage");
       toast.success("Sesión cerrada exitosamente");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
@@ -78,13 +80,13 @@ function Navigations({ toggleShowCart }) {
         <li className="nav-link"
             onClick={() => setIsNavOpen(false)}
           >
-   {JSON.parse(localStorage.getItem("user-storage"))?.state?.user?.email ? (
-    <NavLink to="/login"
-      onClick={handleLogout}
-      >Cerrar Sesión</NavLink>
-  ) : (
-    <NavLink to="/login">Iniciar Sesión</NavLink>
-  )}
+          {user?.email ? (
+            <NavLink to="/login" onClick={handleLogout}>
+              Cerrar Sesión
+            </NavLink>
+          ) : (
+            <NavLink to="/login">Iniciar Sesión</NavLink>
+          )}
         </li>
       </ul>
       <div className="nav-secondary_btn" onClick={handleOpenNavigation}>

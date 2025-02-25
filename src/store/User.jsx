@@ -21,7 +21,7 @@ const useUserStore = create(
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           const token = await userCredential.user.getIdToken();
-          set({ 
+          set({
             user: { email: userCredential.user.email },
             idToken: token,
             loading: false
@@ -73,13 +73,22 @@ const useUserStore = create(
         resetError: () => set({ error: null })
     }),
     {
-        name: 'user-storage',
-        getStorage: () => localStorage,
-        partialize: (state) => ({ 
-          user: state.user ? { email: state.user.email } : null,
-          idToken: state.idToken
-        }),
-      }
+      name: 'user-storage',
+      storage: {
+        getItem: (name) => {
+          const str = localStorage.getItem(name);
+          return str ? JSON.parse(str) : null;
+        },
+        setItem: (name, value) => {
+          localStorage.setItem(name, JSON.stringify(value));
+        },
+        removeItem: (name) => localStorage.removeItem(name),
+      },
+      partialize: (state) => ({
+        user: state.user ? { email: state.user.email } : null,
+        idToken: state.idToken
+      }),
+    }
   )
 );
 

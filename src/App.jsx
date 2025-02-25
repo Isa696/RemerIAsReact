@@ -23,12 +23,12 @@ import FloatingWhatsApp from "./component/FloatingWhatsApp";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route path="/explore/:category" element={<ExploreProduct />}></Route>
-      <Route path="/product/:productId" element={<Product />}></Route>
-      <Route path="/checkout" element={<Checkout />}></Route>
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/register" element={<Register />}></Route>
+        <Route index element={<Home />} />
+        <Route path="/explore/:category" element={<ExploreProduct />}></Route>
+        <Route path="/product/:productId" element={<Product />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
     </Route>
   )
 );

@@ -1,23 +1,16 @@
 import "./Checkout.css";
 import UserInfo from "../component/checkout/UserInfo";
 import OrderSummary from "../component/checkout/OrderSummary";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { validateToken } from '../utils/tokenValid';
-import toast from 'react-hot-toast';
+import { useRouteProtection } from '../hooks/useRouteProtection';
+import { Navigate } from 'react-router-dom';
 
 function Checkout() {
+  const { checkAccess } = useRouteProtection();
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const isValidToken = validateToken();
-    
-    if (!isValidToken) {
-      toast.error('Tu sesión ha expirado, por favor inicia sesión nuevamente');
-      navigate('/login');
-    }
-  }, []);
+  // Check access when component mounts
+  if (!checkAccess()) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="container checkout-container">

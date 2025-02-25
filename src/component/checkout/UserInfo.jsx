@@ -16,8 +16,12 @@ function UserInfo() {
 function ContactInformation() {
   return (
     <div className="contact-info_container">
-      <h3>Información de Contacto</h3>
+    <h3>Información de Contacto</h3>
+    <div className="contact-info_wrapper">
+      <input type="name" placeholder="Nombre" id="firstname" />
+      <input type="name" placeholder="Apellido" id="lastname" />
       <input type="email" placeholder="Email" />
+    </div>
     </div>
   );
 }
@@ -50,8 +54,6 @@ function ShippingAddress() {
     <div className="shipping-address_container">
       <h3>Dirección de Entrega</h3>
       <div className="shipping-address_wrapper">
-        <input type="name" placeholder="Nombre" id="firstname" />
-        <input type="name" placeholder="Apellido" id="lastname" />
         <input type="name" placeholder="Dirección" id="address" />
         <input type="name" placeholder="Ciudad" id="city" />
         <button className="checkout-btn" onClick={checkoutHandler}>

@@ -14,7 +14,7 @@ function OrderSummary() {
 
   return (
     <div className="order-summary_container">
-      <h3>Order Summary</h3>
+      <h3>Resumen de Compra</h3>
       <div className="order-summary">{allSoloProducts}</div>
       <div className="order-total solo-bill">
         <p>Total</p>
