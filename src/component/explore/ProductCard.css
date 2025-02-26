@@ -1,5 +1,5 @@
 .product-card_wrapper {
-  background-color: #ffffff;
+  background-color: var(--magnolia);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,16 +47,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.product-card_description p {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-size: 1.6rem;
-  letter-spacing: -0.5px;
 
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 .product-card_bottom {
   display: flex;
   justify-content: space-between;
@@ -83,4 +74,43 @@
 
 .product-card_price {
   font-size: 1.8rem;
+}
+
+.product-card_admin-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.admin-btn {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  color: #2196f3;
+}
+
+.delete-btn {
+  color: #f44336;
+}
+
+.product-card_wrapper {
+  position: relative;
 }

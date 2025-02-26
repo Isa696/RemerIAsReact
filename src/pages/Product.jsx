@@ -12,6 +12,8 @@ function Product() {
     async function getData() {
       try {
         const data = await fetchFromApi("products");
+        console.log(data);
+        
         // Buscar el producto específico por ID
         const product = data.find(prod => prod.id === parseInt(productId));
         if (product) {

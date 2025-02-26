@@ -88,6 +88,15 @@ function Navigations({ toggleShowCart }) {
             <NavLink to="/login">Iniciar Sesión</NavLink>
           )}
         </li>
+          {(user?.email && user?.isAdmin) &&
+            <li className="nav-link"
+            onClick={() => setIsNavOpen(false)}
+            >
+            <NavLink to="/product/new">
+              New Product
+            </NavLink>
+                </li>
+            }
       </ul>
       <div className="nav-secondary_btn" onClick={handleOpenNavigation}>
         <span></span>

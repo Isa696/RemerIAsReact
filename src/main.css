@@ -19,7 +19,7 @@ body {
   background: linear-gradient(
     to bottom,
     var(--dark-magenta) 0%,
-    var(--yellow-green) 75%,
+    var(--yellow-green) 85%,
     var(--magnolia) 100%
   );
   min-height: 100vh;

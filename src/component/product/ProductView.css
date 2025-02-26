@@ -45,13 +45,17 @@
 }
 .product-name {
   font-size: 3rem;
+  color: var(--yellow-green);
+  filter: brightness(1.2);
 }
 .product-price {
   font-size: 2.2rem;
+  color: var(--yellow-green);
+  filter: brightness(1.2);
 }
 .product-description {
   font-size: 1.7rem;
-  color: #666;
+  color: white;
 }
 .product-description::first-letter {
   text-transform: capitalize;
@@ -110,4 +114,44 @@
     padding: 1.2rem 0px;
     width: 12rem;
   }
+}
+
+
+.product-card_admin-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.admin-btn {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  color: #2196f3;
+}
+
+.delete-btn {
+  color: #f44336;
+}
+
+.product-card_wrapper {
+  position: relative;
 }

@@ -1,82 +1,92 @@
 [
-    {
-      "id": 1,
-      "title": "Vela Ritual de Santería",
-      "category": "Velas",
-      "description": "Vela artesanal para rituales de protección y atracción de energías positivas.",
-      "image": "https://example.com/imagenes/vela-ritual.jpg",
-      "price": 10.00
-    },
-    {
-      "id": 2,
-      "title": "Aceite de Palo Santo",
-      "category": "Aceites",
-      "description": "Aceite sagrado para limpieza energética y elevación espiritual.",
-      "image": "https://example.com/imagenes/aceite-palo-santo.jpg",
-      "price": 15.50
-    },
-    {
-      "id": 3,
-      "title": "Jabón Ritual",
-      "category": "Jabones",
-      "description": "Jabón natural infusionado con hierbas sagradas para protección y purificación.",
-      "image": "https://example.com/imagenes/jabon-ritual.jpg",
-      "price": 8.75
-    },
-    {
-      "id": 4,
-      "title": "Amuleto de Abundancia",
-      "category": "Amuletos",
-      "description": "Amuleto protector para atraer prosperidad, fortuna y bienestar.",
-      "image": "https://example.com/imagenes/amuleto-abundancia.jpg",
-      "price": 20.00
-    },
-    {
-      "id": 5,
-      "title": "Infusión de Hierbas Sagradas",
-      "category": "Infusiones",
-      "description": "Mezcla de hierbas rituales para meditación, relajación y conexión espiritual.",
-      "image": "https://example.com/imagenes/infusion-hierbas.jpg",
-      "price": 12.00
-    },
-    {
-      "id": 6,
-      "title": "Bañito de Purificación",
-      "category": "Baños",
-      "description": "Preparado ritual para limpiar energías negativas y atraer la buena vibra.",
-      "image": "https://example.com/imagenes/banito-purificacion.jpg",
-      "price": 18.00
-    },
-    {
-      "id": 7,
-      "title": "Kit Ritual de Protección",
-      "category": "Kits Ritual",
-      "description": "Conjunto completo con vela, hierbas y amuletos para un ritual de protección.",
-      "image": "https://example.com/imagenes/kit-ritual.jpg",
-      "price": 25.00
-    },
-    {
-      "id": 8,
-      "title": "Estatua de Orisha",
-      "category": "Estatuas",
-      "description": "Figura representativa de un orisha para decorar y consagrar tu altar sagrado.",
-      "image": "https://example.com/imagenes/estatua-orisha.jpg",
-      "price": 30.00
-    },
-    {
-      "id": 9,
-      "title": "Cofre para Ofrendas",
-      "category": "Accesorios",
-      "description": "Cofre especial para guardar objetos rituales y ofrendas sagradas.",
-      "image": "https://example.com/imagenes/cofre-ofrendas.jpg",
-      "price": 35.00
-    },
-    {
-      "id": 10,
-      "title": "Libro de Rituales y Oraciones",
-      "category": "Libros",
-      "description": "Guía práctica con rituales y oraciones para fortalecer tu camino espiritual.",
-      "image": "https://example.com/imagenes/libro-rituales.jpg",
-      "price": 22.00
-    }
-  ]
+  {
+    "id": 0,
+    "title": "Vela Ritual de Santería",
+    "category": "Velas",
+    "description": "Vela artesanal para rituales de protección y atracción de energías positivas.",
+    "image": "https://example.com/imagenes/vela-ritual.jpg",
+    "price": 10.00,
+    "stock": 30
+  },
+  {
+    "id": 1,
+    "title": "Aceite de Palo Santo",
+    "category": "Aceites",
+    "description": "Aceite sagrado para limpieza energética y elevación espiritual.",
+    "image": "https://example.com/imagenes/aceite-palo-santo.jpg",
+    "price": 15.50,
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "title": "Jabón Ritual",
+    "category": "Jabones",
+    "description": "Jabón natural infusionado con hierbas sagradas para protección y purificación.",
+    "image": "https://example.com/imagenes/jabon-ritual.jpg",
+    "price": 8.75,
+    "stock": 40
+  },
+  {
+    "id": 3,
+    "title": "Amuleto de Abundancia",
+    "category": "Amuletos",
+    "description": "Amuleto protector para atraer prosperidad, fortuna y bienestar.",
+    "image": "https://example.com/imagenes/amuleto-abundancia.jpg",
+    "price": 20.00,
+    "stock": 25
+  },
+  {
+    "id": 4,
+    "title": "Infusión de Hierbas Sagradas",
+    "category": "Infusiones",
+    "description": "Mezcla de hierbas rituales para meditación, relajación y conexión espiritual.",
+    "image": "https://example.com/imagenes/infusion-hierbas.jpg",
+    "price": 12.00,
+    "stock": 35
+  },
+  {
+    "id": 5,
+    "title": "Bañito de Purificación",
+    "category": "Baños",
+    "description": "Preparado ritual para limpiar energías negativas y atraer la buena vibra.",
+    "image": "https://example.com/imagenes/banito-purificacion.jpg",
+    "price": 18.00,
+    "stock": 20
+  },
+  {
+    "id": 6,
+    "title": "Kit Ritual de Protección",
+    "category": "Kits Ritual",
+    "description": "Conjunto completo con vela, hierbas y amuletos para un ritual de protección.",
+    "image": "https://example.com/imagenes/kit-ritual.jpg",
+    "price": 25.00,
+    "stock": 15
+  },
+  {
+    "id": 7,
+    "title": "Estatua de Orisha",
+    "category": "Estatuas",
+    "description": "Figura representativa de un orisha para decorar y consagrar tu altar sagrado.",
+    "image": "https://example.com/imagenes/estatua-orisha.jpg",
+    "price": 30.00,
+    "stock": 10
+  },
+  {
+    "id": 8,
+    "title": "Cofre para Ofrendas",
+    "category": "Accesorios",
+    "description": "Cofre especial para guardar objetos rituales y ofrendas sagradas.",
+    "image": "https://example.com/imagenes/cofre-ofrendas.jpg",
+    "price": 35.00,
+    "stock": 12
+  },
+  {
+    "id": 9,
+    "title": "Libro de Rituales y Oraciones",
+    "category": "Libros",
+    "description": "Guía práctica con rituales y oraciones para fortalecer tu camino espiritual.",
+    "image": "https://example.com/imagenes/libro-rituales.jpg",
+    "price": 22.00,
+    "stock": 18
+  }
+]

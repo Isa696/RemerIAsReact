@@ -9,6 +9,8 @@
 .price-filter_wrapper label {
   font-size: 14px;
   font-weight: 600;
+  color: var(--yellow-green);
+  filter: brightness(1.2);
 }
 
 @media (max-width: 550px) {

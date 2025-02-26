@@ -6,6 +6,7 @@ import {
   signOut
 } from 'firebase/auth';
 import { auth } from '../utils/firebaseConfig';
+import { fetchAdmins } from '../utils/fetchAdmins';
 
 const useUserStore = create(
   persist(
@@ -21,8 +22,17 @@ const useUserStore = create(
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           const token = await userCredential.user.getIdToken();
+          
+          // Obtener el email de admin
+          const adminEmail = await fetchAdmins();
+          const isAdmin = adminEmail === userCredential.user.email;
+          console.log(isAdmin);
+          
           set({
-            user: { email: userCredential.user.email },
+            user: {
+              email: userCredential.user.email,
+              isAdmin
+            },
             idToken: token,
             loading: false
           });
@@ -85,11 +95,14 @@ const useUserStore = create(
         removeItem: (name) => localStorage.removeItem(name),
       },
       partialize: (state) => ({
-        user: state.user ? { email: state.user.email } : null,
+        user: state.user ? { 
+          email: state.user.email,
+          isAdmin: state.user.isAdmin
+        } : null,
         idToken: state.idToken
       }),
     }
   )
+  
 );
-
 export default useUserStore;
