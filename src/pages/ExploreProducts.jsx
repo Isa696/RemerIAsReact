@@ -109,6 +109,7 @@ function ExploreProduct() {
         checkBoxState={checkBoxState}
         handleCheckBox={handleCategoryCheckBox}
         categories={categories}
+        products={products}
       />
       <div className="products-container">
         <AllProducts products={products} />
@@ -119,9 +120,11 @@ function ExploreProduct() {
 
 function AllProducts({ products }) {
   let productCards = products.length ? (
-    products?.map((product) => {
-      return <ProductCard product={product} key={product.id} />;
-    })
+    products
+      .filter(product => !product.deleted) // Filtrar productos eliminados
+      .map((product) => {
+        return <ProductCard product={product} key={product.id} />;
+      })
   ) : (
     <Skeleton />
   );

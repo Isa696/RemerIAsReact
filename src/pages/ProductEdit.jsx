@@ -6,20 +6,33 @@ import { X } from "phosphor-react";
 import { useProducts } from "../hooks/useProducts";
 import fetchCategories from "../utils/fetchCategories";
 
-function ProductEdit() {
-  const navigate = useNavigate();
+function ProductEdit({ product }) {
   const [categories, setCategories] = useState([]);
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [newCategory, setNewCategory] = useState("");
-  const { createProduct, addCategory } = useProducts();
+  const { createProduct, addCategory, updateProduct } = useProducts();
+  const navigate = useNavigate();
   const [productData, setProductData] = useState({
-    title: "",
-    category: "",
-    description: "",
-    image: "",
-    price: "",
-    stock: "",
+    title: product?.title || "",
+    category: product?.category || "",
+    description: product?.description || "",
+    image: product?.image || "",
+    price: product?.price || "",
+    stock: product?.stock || "",
   });
+
+  useEffect(() => {
+    if (product) {
+      setProductData({
+        title: product.title || "",
+        category: product.category || "",
+        description: product.description || "",
+        image: product.image || "",
+        price: product.price || "",
+        stock: product.stock || "",
+      });
+    }
+  }, [product]);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -28,19 +41,6 @@ function ProductEdit() {
     };
     loadCategories();
   }, []);
-
-  const handleCategoryChange = (e) => {
-    const value = e.target.value;
-    if (value === "new") {
-      setShowNewCategory(true);
-    } else {
-      setShowNewCategory(false);
-      setProductData((prev) => ({
-        ...prev,
-        category: value,
-      }));
-    }
-  };
 
   const handleNewCategory = async () => {
     if (!newCategory.trim()) {
@@ -85,18 +85,28 @@ function ProductEdit() {
     }
 
     try {
-      const created = await createProduct({
+      const formattedData = {
         ...productData,
         price: Number(productData.price),
         stock: Number(productData.stock),
-      });
+      };
 
-      if (created) {
+      let success;
+      if (product) {
+        // Modo edición
+        success = await updateProduct(product.id, formattedData);
+      } else {
+        // Modo creación
+        success = await createProduct(formattedData);
+      }
+
+      if (success) {
+        toast.success(product ? "Producto actualizado" : "Producto creado");
         navigate("/explore/all");
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error al crear el producto");
+      toast.error(product ? "Error al actualizar" : "Error al crear");
     }
   };
 
@@ -105,6 +115,8 @@ function ProductEdit() {
       <button className="close-btn" onClick={() => navigate("/explore/all")}>
         <X size={24} />
       </button>
+
+      <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>
 
       <form onSubmit={handleSubmit} className="product-edit-form">
         <div className="form-group">
@@ -237,8 +249,8 @@ function ProductEdit() {
         </div>
 
         <button type="submit" className="submit-btn">
-          Crear Producto
-        </button>
+        {product ? "Actualizar Producto" : "Crear Producto"}
+      </button>
       </form>
     </div>
   );

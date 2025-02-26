@@ -20,6 +20,7 @@ import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import FloatingWhatsApp from "./component/FloatingWhatsApp";
 import ProductEdit from "./pages/ProductEdit";
+import EditProductWrapper from "./pages/EditProductWrapper";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/product/new" element={<ProductEdit />} />
+        <Route path="/product/edit/:id" element={<EditProductWrapper />} />
     </Route>
   )
 );

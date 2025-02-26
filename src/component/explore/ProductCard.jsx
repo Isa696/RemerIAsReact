@@ -19,8 +19,7 @@ function ProductCard({ product }) {
   }
 
   const handleEdit =  () => {
-    // TODO: Implementar edición
-    console.log('Editar producto:', product.id);
+    navigate(`/product/edit/${product.id}`);
   };
 
   const handleDelete = async () => {

@@ -13,18 +13,24 @@ export const useProducts = () => {
         toast.error('Producto no encontrado');
         return false;
       }
-
-      // Intentamos eliminar el producto
-      await remove(productRef);
+  
+      // En lugar de eliminar, actualizamos con un objeto "vacío"
+      const emptyProduct = {
+        id: productId,
+        deleted: true,
+        title: '',
+        category: '',
+        description: '',
+        image: '',
+        price: 0,
+        stock: 0
+      };
+  
+      // Actualizamos el producto
+      await set(productRef, emptyProduct);
       
-      // Verificamos si se eliminó correctamente
-      const checkSnapshot = await get(productRef);
-      if (!checkSnapshot.exists()) {
-        toast.success('Producto eliminado exitosamente');
-        return true;
-      } else {
-        throw new Error('No se pudo eliminar el producto');
-      }
+      toast.success('Producto eliminado exitosamente');
+      return true;
     } catch (error) {
       console.error('Error al eliminar producto:', error);
       toast.error('Error al eliminar el producto');
@@ -92,9 +98,27 @@ export const useProducts = () => {
     }
   };
 
+  const updateProduct = async (productId, productData) => {
+    try {
+      const productRef = ref(db, `products/${productId}`);
+      await set(productRef, {
+        ...productData,
+        id: productId
+      });
+      
+      toast.success('Producto actualizado exitosamente');
+      return true;
+    } catch (error) {
+      console.error('Error al actualizar producto:', error);
+      toast.error('Error al actualizar el producto');
+      return false;
+    }
+  };
+
   return {
     deleteProduct,
     createProduct,
-    addCategory
+    addCategory,
+    updateProduct
   };
 };

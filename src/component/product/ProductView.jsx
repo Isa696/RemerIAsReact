@@ -22,8 +22,7 @@ function ProductView({ productData }) {
   }
 
   const handleEdit = () => {
-    // TODO: Implementar edición
-    console.log('Editar producto:', productData.id);
+    navigate(`/product/edit/${productData.id}`);
   };
 
   const handleDelete = async () => {
