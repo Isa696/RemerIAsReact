@@ -2,15 +2,18 @@ import { useEffect } from 'react';
 import { validateToken } from '../../utils/validateToken';
 import useUserStore from '../../store/User';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function AuthWrapper({ children }) {
   const { logout } = useUserStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkToken = () => {
       const isValidToken = validateToken();
       if (!isValidToken) {
         logout();
+        navigate('/login');
         toast.error('Sesión expirada, por favor inicia sesión nuevamente');
       }
     };

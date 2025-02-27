@@ -1,8 +1,11 @@
+import { useOrders } from "../../hooks/useOrders";
 import { useCartActions } from "../../store/Store";
 import { useCart } from "../../store/Store";
 import "./UserInfo.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useCheckoutStore } from "../../store/Checkout";
+import { provinces } from "../../utils/provinces";
 
 function UserInfo() {
   return (
@@ -14,25 +17,83 @@ function UserInfo() {
 }
 
 function ContactInformation() {
+  const { formData, errors, setFormData } = useCheckoutStore();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ [name]: value });
+  };
+
   return (
     <div className="contact-info_container">
-    <h3>Información de Contacto</h3>
-    <div className="contact-info_wrapper">
-      <input type="name" placeholder="Nombre" id="firstname" />
-      <input type="name" placeholder="Apellido" id="lastname" />
-      <input type="email" placeholder="Email" />
-    </div>
+      <h3>Información de Contacto</h3>
+      <div className="contact-info_wrapper">
+        <div className="input-group">
+          <input
+            type="text"
+            name="firstname"
+            placeholder="Nombre"
+            value={formData.firstname}
+            onChange={handleChange}
+            className={errors.firstname ? "error" : ""}
+            required
+          />
+          {errors.firstname && (
+            <span className="error-message">{errors.firstname}</span>
+          )}
+        </div>
+
+        <div className="input-group">
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Apellido"
+            value={formData.lastname}
+            onChange={handleChange}
+            className={errors.lastname ? "error" : ""}
+            required
+          />
+          {errors.lastname && (
+            <span className="error-message">{errors.lastname}</span>
+          )}
+        </div>
+
+        <div className="input-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className={errors.email ? "error" : ""}
+            required
+          />
+          {errors.email && (
+            <span className="error-message">{errors.email}</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 function ShippingAddress() {
+  const { formData, errors, setFormData, validateForm, resetForm } = useCheckoutStore();
   const { emptyCart } = useCartActions();
+  const { createOrder } = useOrders();
   const cart = useCart();
+  const navigate = useNavigate();
 
-  let navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ [name]: value });
+  };
 
-  function checkoutHandler() {
+  async function checkoutHandler() {
+    if (!validateForm()) {
+      toast.error("Por favor completa todos los campos correctamente");
+      return;
+    }
     if (cart.length < 1) {
       toast.error("No hay productos.");
       return;
@@ -41,21 +102,96 @@ function ShippingAddress() {
       return acc + cur.qty * cur.price;
     }, 0);
     if (totalPrice < 1) {
-      toast.error("No hay productos.");
+      toast.error("Precio total menor a 1.");
       return;
     }
 
-    emptyCart();
-    toast.success("Compra exitosa :D");
-    navigate("/");
+    // Crear la orden
+    const orderData = {
+      cart,
+      totalPrice,
+      customerInfo: formData,
+    };
+
+    const success = await createOrder(orderData);
+
+    if (success) {
+      resetForm();
+      emptyCart();
+      toast.success("Compra exitosa :D");
+      navigate("/");
+    }
   }
 
   return (
     <div className="shipping-address_container">
       <h3>Dirección de Entrega</h3>
       <div className="shipping-address_wrapper">
-        <input type="name" placeholder="Dirección" id="address" />
-        <input type="name" placeholder="Ciudad" id="city" />
+        <div className="input-group">
+          <select
+            name="province"
+            value={formData.province}
+            onChange={handleChange}
+            className={errors.province ? "error" : ""}
+            required
+          >
+            <option value="">Selecciona una provincia</option>
+            {provinces.map((province) => (
+              <option key={province} value={province}>
+                {province}
+              </option>
+            ))}
+          </select>
+          {errors.province && (
+            <span className="error-message">{errors.province}</span>
+          )}
+        </div>
+        <input
+          type="text"
+          name="city"
+          placeholder="Ciudad"
+          value={formData.city}
+          onChange={handleChange}
+          className={errors.city ? "error" : ""}
+        />
+        {errors.city && <span className="error-message">{errors.city}</span>}
+
+        <input
+          type="text"
+          name="phone"
+          placeholder="Teléfono"
+          value={formData.phone}
+          onChange={handleChange}
+          className={errors.phone ? "error" : ""}
+        />
+        {errors.phone && <span className="error-message">{errors.phone}</span>}
+
+        <input
+          type="text"
+          name="address"
+          placeholder="Dirección"
+          value={formData.address}
+          onChange={handleChange}
+          className={errors.address ? "error" : ""}
+        />
+        {errors.address && (
+          <span className="error-message">{errors.address}</span>
+        )}
+
+        <h3>Notas (opcional)</h3>
+
+        <div className="textarea-wrapper">
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            placeholder="Escribe aquí datos adicionales que quieras agregar..."
+            maxLength={200}
+          />
+          <small className="char-count">
+            {formData.notes?.length || 0}/200 caracteres
+          </small>
+        </div>
         <button className="checkout-btn" onClick={checkoutHandler}>
           Comprar
         </button>

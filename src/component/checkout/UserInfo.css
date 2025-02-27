@@ -1,22 +1,73 @@
-.user-info_container {
+.contact-info_container {
+  margin-top: 20px;
+}
+.shipping-address_container {
+  margin-top: 20px;
+}
+
+.contact-info_wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+.input-group {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  input {
-    width: 100%;
-    padding: 12px 10px;
-    font-weight: 500;
-    border: 1px solid #bbb;
-    outline: none;
-    border-radius: 10px;
+}
+
+/* Nombre y Apellido ocupan 50% - gap */
+.input-group:nth-child(1),
+.input-group:nth-child(2) {
+  flex: 1 1 calc(50% - var(--gap));
+  /* display: inline-block; */
+}
+
+/* Email ocupa 100% */
+.input-group:nth-child(3) {
+  flex: 0 1 100%;
+}
+
+.shipping-address_container .shipping-address_wrapper input {
+  width: 100%;
+  padding: 12px 10px;
+  font-weight: 500;
+  border: 1px solid #bbb;
+  outline: none;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+}
+
+/* Responsive para móviles */
+@media screen and (max-width: 600px) {
+  .input-group:nth-child(1),
+  .input-group:nth-child(2) {
+    flex: 0 1 100%;
   }
-  input:focus {
-    border: 1px solid black;
-  }
+}
+
+.input-group input.error {
+  border-color: #e95555;
+}
+.error-message {
+  color: red;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  background: rgba(223, 248, 215, 0.6) !important; /* Reduced opacity */
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--yellow-green);
 }
 .user-info_container h3 {
   font-size: 1.6rem;
   margin-bottom: 10px;
+  color: var(--magnolia);
 }
 .shipping-address_wrapper,
 .contact-info_wrapper {
@@ -27,10 +78,6 @@
   gap: var(--gap);
 }
 
-#firstname,
-#lastname {
-  width: calc(50% - calc(var(--gap) / 2));
-}
 .checkout-btn {
   width: 60%;
   padding: 10px;
@@ -44,4 +91,89 @@
 }
 .checkout-btn:hover {
   background-color: #303030;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  outline: none;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  background-color: white;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  outline: none;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  background-color: white;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Styling for options */
+select option {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+/* Media query for mobile */
+@media screen and (max-width: 600px) {
+  select {
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  select option {
+    max-width: 100%;
+    font-size: 0.9rem;
+    white-space: normal; /* Allows text wrapping */
+    word-wrap: break-word;
+  }
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+select::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* For Firefox */
+select {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+select.error {
+  border-color: #ff4444;
+}
+
+select:focus {
+  border-color: var(--yellow-green);
+}
+
+.textarea-wrapper {
+  flex: 0 1 100%;
+  margin-bottom: 1rem;
+}
+
+.char-count {
+  color: #666;
+  font-size: 0.8rem;
 }

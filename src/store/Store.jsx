@@ -43,15 +43,16 @@ const useCartStore = create((set) => ({
           }
           return product;
         });
-
+        
         return { cart: newCartValue };
       });
     },
 
-    emptyCart() {
-      set(() => []);
+    emptyCart: () => {
+      set({ cart: [] });
     },
   },
+
 }));
 
 export const useCart = () => useCartStore((store) => store.cart);

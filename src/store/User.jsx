@@ -31,6 +31,7 @@ const useUserStore = create(
           set({
             user: {
               email: userCredential.user.email,
+              uid: userCredential.user.uid,
               isAdmin
             },
             idToken: token,
@@ -48,7 +49,14 @@ const useUserStore = create(
         set({ loading: true, error: null });
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          set({ user: userCredential.user, loading: false });
+          set({ 
+            user: {
+              email: userCredential.user.email,
+              uid: userCredential.user.uid, // Adding uid
+              isAdmin: false
+            }, 
+            loading: false 
+          });
           return userCredential.user;
         } catch (error) {
           set({ error: error.message, loading: false });
@@ -97,6 +105,7 @@ const useUserStore = create(
       partialize: (state) => ({
         user: state.user ? { 
           email: state.user.email,
+          uid: state.user.uid,
           isAdmin: state.user.isAdmin
         } : null,
         idToken: state.idToken

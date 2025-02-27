@@ -68,11 +68,6 @@ function Navigations({ toggleShowCart }) {
       </span>
       <ul className="nav-link_container">
         <li className="nav-link"
-          onClick={() => setIsNavOpen(false)}
-          >
-          <NavLink to="/">Inicio</NavLink>
-        </li>
-        <li className="nav-link"
             onClick={() => setIsNavOpen(false)}
           >
           <NavLink to="/explore/all">Productos</NavLink>
@@ -97,6 +92,13 @@ function Navigations({ toggleShowCart }) {
             </NavLink>
                 </li>
             }
+            {(user?.email && user?.isAdmin) &&
+        <li className="nav-link"
+          onClick={() => setIsNavOpen(false)}
+          >
+          <NavLink to="/orders">Historial</NavLink>
+        </li>
+        }
       </ul>
       <div className="nav-secondary_btn" onClick={handleOpenNavigation}>
         <span></span>
