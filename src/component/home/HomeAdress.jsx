@@ -5,6 +5,7 @@ import {whatsAppUrl} from "../../utils/whatsAppMsg"
 
 function HomeAdress() {
   return (
+    <>
 
     <section className="address-container container">
 
@@ -16,6 +17,9 @@ function HomeAdress() {
         <p>
         Ubicada sobre la avenida principal del centro comercial del barrio “Las tunas”. <br /><br />📍Av. Constituyentes 3142, General Pacheco, Tigre.
         </p>
+
+      <h3>Nuestros Horarios </h3>
+      <p>Lunes a Viernes<br />9:00 a 13:00 y 17:00 a 20:30</p>
       </div>
       <button className="explore-clothing_btn">
         <a          href={whatsAppUrl}
@@ -38,8 +42,33 @@ function HomeAdress() {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-
     </section>
+            <div className="network-container info-txt">
+            <h2>Seguinos en nuestras redes!!!</h2>
+            <div className="networks">
+              <a
+                href="https://www.instagram.com/estilo.clothing/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Seguirnos en Instagram"
+              >
+                <img
+                  src="https://img.icons8.com/color/48/000000/instagram-new.png"
+                  alt="Instagram" />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61561157242609"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Seguirnos en Facebook"
+              >
+                <img
+                  src="https://img.icons8.com/color/48/000000/facebook-new.png"
+                  alt="Facebook" />
+              </a>
+            </div>
+          </div>
+    </>
   )
 }
 
