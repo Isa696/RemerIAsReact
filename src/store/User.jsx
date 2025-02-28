@@ -26,7 +26,6 @@ const useUserStore = create(
           // Obtener el email de admin
           const adminEmail = await fetchAdmins();
           const isAdmin = adminEmail === userCredential.user.email;
-          console.log(isAdmin);
           
           set({
             user: {

@@ -92,11 +92,18 @@ function Navigations({ toggleShowCart }) {
             </NavLink>
                 </li>
             }
-            {(user?.email && user?.isAdmin) &&
+            {(user?.isAdmin) &&
         <li className="nav-link"
           onClick={() => setIsNavOpen(false)}
           >
           <NavLink to="/orders">Historial</NavLink>
+        </li>
+        }
+            {(!user?.isAdmin && !!user?.uid) &&
+        <li className="nav-link"
+          onClick={() => setIsNavOpen(false)}
+          >
+          <NavLink to={`/orders/${user?.uid}`}>Historial</NavLink>
         </li>
         }
       </ul>

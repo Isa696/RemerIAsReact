@@ -22,6 +22,7 @@ import FloatingWhatsApp from "./component/FloatingWhatsApp";
 import ProductEdit from "./pages/ProductEdit";
 import EditProductWrapper from "./pages/EditProductWrapper";
 import Orders from "./pages/Orders";
+import OrderWrapper from "./component/orders/OrderWrapper";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,7 +36,7 @@ const router = createBrowserRouter(
         <Route path="/product/new" element={<ProductEdit />} />
         <Route path="/product/edit/:id" element={<EditProductWrapper />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/orders/:userId" element={<Orders />} />
+        <Route path="/orders/:userId" element={<OrderWrapper />} />
     </Route>
   )
 );

@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
 import { useOrders } from "../hooks/useOrders";
 import "./Orders.css";
-import { useRouteProtection } from "../hooks/useRouteProtection";
 import OrderModal from "../component/orders/OrderModal";
+import { useAdmin } from "../hooks/useAdmin";
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function Orders() {
+function Orders({orders: ordersProp}) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { getOrders } = useOrders();
-  const [orders, setOrders] = useState([]);
-  const { checkAccess } = useRouteProtection();
+  const {isAdmin} = useAdmin();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [orders, setOrders] = useState(Array.isArray(ordersProp) ? ordersProp : []);
 
+  
   useEffect(() => {
-    const authorized = checkAccess();
+    
+    const authorized = isAdmin();
     setIsAuthorized(authorized);
-
-    if (authorized) {
+    
+    if (!authorized && location.pathname === '/orders') {
+      navigate('/');
+    }
+    if (authorized && orders.length === 0) {
       const loadOrders = async () => {
         const fetchedOrders = await getOrders();
         setOrders(fetchedOrders);
       };
       loadOrders();
     }
-  }, []);
+  }, [isAdmin, location.pathname]);
 
-  if (!isAuthorized) {
-    return null;
-  }
-
-  if (orders.length === 0) {
+  if (!isAuthorized && orders.length === 0) {
     return (
       <div className="orders-page">
         <h1>Historial de compras</h1>

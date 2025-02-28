@@ -37,7 +37,8 @@
   font-size: 1.1rem; /* Added to make title smaller */
   margin-bottom: 0.5rem; /* Reduced from 1rem */
   padding-bottom: 0.3rem; /* Reduced from 0.5rem */
-  border-bottom: 2px solid var(--yellow-green);
+  border-bottom: 2px solid var(--black);
+  color: var(--dark-green);
 }
 
 .order-details {

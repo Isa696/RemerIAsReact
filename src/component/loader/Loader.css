@@ -1,0 +1,25 @@
+.animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    p {
+      color: var(--dark-magenta);
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  }
