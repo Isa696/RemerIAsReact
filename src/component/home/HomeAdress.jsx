@@ -20,7 +20,6 @@ function HomeAdress() {
 
       <h3>Nuestros Horarios </h3>
       <p>Lunes a Viernes<br />9:00 a 13:00 y 17:00 a 20:30</p>
-      </div>
       <button className="explore-clothing_btn">
         <a          href={whatsAppUrl}
                     target="_blank"
@@ -29,20 +28,7 @@ function HomeAdress() {
         Contactanos!!!
         </a>
       </button>
-        </article>
-
-    <div className="map-container">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3290.151233517665!2d-58.6729895!3d-34.4483087!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca3bda76a52cd%3A0x4d0b0310a6654157!2zU2FudGVyw61hIEVsIFBhcmHDrXNv!5e0!3m2!1ses!2sar!4v1739999527770!5m2!1ses!2sar"
-            width="100%"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-    </section>
+                      </div>
             <div className="network-container info-txt">
             <h2>Seguinos en nuestras redes!!!</h2>
             <div className="networks">
@@ -68,6 +54,20 @@ function HomeAdress() {
               </a>
             </div>
           </div>
+        </article>
+
+    <div className="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3290.151233517665!2d-58.6729895!3d-34.4483087!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca3bda76a52cd%3A0x4d0b0310a6654157!2zU2FudGVyw61hIEVsIFBhcmHDrXNv!5e0!3m2!1ses!2sar!4v1739999527770!5m2!1ses!2sar"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+    </section>
     </>
   )
 }

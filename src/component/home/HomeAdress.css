@@ -53,11 +53,7 @@ h3 {
   gap: 1.5rem;
   margin-top: 2rem;
   width: 90%;
-  margin: 0 auto;
   padding-bottom: 1rem;
-  h2 {
-    text-align: center;
-  }
 }
 .networks {
   display: flex;

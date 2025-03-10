@@ -67,3 +67,24 @@
 .order-card button:hover {
   background: var(--dark-green);
 }
+
+#pending {
+  background: red;
+}
+#pending:hover {
+    filter: brightness(0.8);
+  }
+
+  
+  #sent {
+    background: green;
+  }
+#sent:hover {
+      filter: brightness(0.8);
+    }
+  
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}

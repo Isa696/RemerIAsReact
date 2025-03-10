@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useCheckoutStore } from "../../store/Checkout";
 import { provinces } from "../../utils/provinces";
+import useSendMessage from "../../hooks/useSendMessage ";
+import Loader from "../loader/Loader";
 
 function UserInfo() {
   return (
@@ -78,11 +80,27 @@ function ContactInformation() {
 }
 
 function ShippingAddress() {
-  const { formData, errors, setFormData, validateForm, resetForm } = useCheckoutStore();
+  const { formData, errors, setFormData, validateForm, resetForm } =
+    useCheckoutStore();
   const { emptyCart } = useCartActions();
   const { createOrder } = useOrders();
   const cart = useCart();
   const navigate = useNavigate();
+  const { sendMessage, loadingMsg } = useSendMessage();
+
+  // const formatOrderMessage = (order) => {
+  //   let message = 'Orden de Compra:\n\n';
+  //   order.forEach(item => {
+  //     message += `Producto: ${item.product}\nCantidad: ${item.quantity}\nPrecio: ${item.price}\n\n`;
+  //   });
+  //   return message;
+  // };
+
+  // const orderMessage = formatOrderMessage(formData);
+
+  const handleSendMessage = () => {
+    sendMessage();
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,6 +108,7 @@ function ShippingAddress() {
   };
 
   async function checkoutHandler() {
+    handleSendMessage();
     if (!validateForm()) {
       toast.error("Por favor completa todos los campos correctamente");
       return;
@@ -116,6 +135,7 @@ function ShippingAddress() {
     const success = await createOrder(orderData);
 
     if (success) {
+
       resetForm();
       emptyCart();
       toast.success("Compra exitosa :D");
@@ -155,7 +175,6 @@ function ShippingAddress() {
           className={errors.city ? "error" : ""}
         />
         {errors.city && <span className="error-message">{errors.city}</span>}
-
         <input
           type="text"
           name="phone"
@@ -165,7 +184,6 @@ function ShippingAddress() {
           className={errors.phone ? "error" : ""}
         />
         {errors.phone && <span className="error-message">{errors.phone}</span>}
-
         <input
           type="text"
           name="address"
@@ -177,9 +195,7 @@ function ShippingAddress() {
         {errors.address && (
           <span className="error-message">{errors.address}</span>
         )}
-
         <h3>Notas (opcional)</h3>
-
         <div className="textarea-wrapper">
           <textarea
             name="notes"
@@ -192,9 +208,13 @@ function ShippingAddress() {
             {formData.notes?.length || 0}/200 caracteres
           </small>
         </div>
-        <button className="checkout-btn" onClick={checkoutHandler}>
-          Comprar
-        </button>
+        {loadingMsg ? (
+          <Loader sizeLoader={24} colorLoader={"#851E87ff"} />
+        ) : (
+          <button className="checkout-btn" onClick={checkoutHandler}>
+            Comprar
+          </button>
+        )}
       </div>
     </div>
   );

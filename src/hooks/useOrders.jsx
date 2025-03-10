@@ -1,4 +1,4 @@
-import { ref, set, get } from 'firebase/database';
+import { ref, set, get, update } from 'firebase/database';
 import { db } from '../utils/firebaseConfig';
 import toast from 'react-hot-toast';
 import useUserStore from '../store/User';
@@ -83,8 +83,23 @@ export const useOrders = () => {
     }
   };
 
+  const updateOrder = async (orderId, newStatus) => {
+    try {
+      const orderRef = ref(db, `orders/${orderId}`);
+      await update(orderRef, { status: newStatus });
+      
+      toast.success('Orden actualizada exitosamente');
+      return true;
+    } catch (error) {
+      console.error('Error al actualizar orden:', error);
+      toast.error('Error al actualizar la orden');
+      return false;
+    }
+  };
+
   return {
     createOrder,
-    getOrders
+    getOrders,
+    updateOrder
   };
 };
