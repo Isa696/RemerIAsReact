@@ -95,6 +95,7 @@ function Register() {
         </div>
 
         <div className="form-group">
+          {errors.password && <span className="error-text">Nota: La contraseña debe tener al menos 6 caracteres <br /> Debe contener minusculas, mayusculas, numeros y simbolos</span>}
           <input
             type="password"
             name="password"

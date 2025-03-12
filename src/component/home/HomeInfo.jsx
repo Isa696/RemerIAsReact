@@ -1,4 +1,3 @@
-import React from "react";
 import "./HomeInfo.css";
 import { Link } from "react-router-dom";
 
