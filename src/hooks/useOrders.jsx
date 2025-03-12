@@ -36,7 +36,7 @@ export const useOrders = () => {
       }
       // Crear referencia para la nueva orden
       const orderId = generateOrderId();
-      const newOrderRef = ref(db, `orders/${orderId}`); // Usar timestamp como ID
+      const newOrderRef = ref(db, `orders/${orderId}`);
 
       // Formatear la orden
       const order = {

@@ -3,9 +3,11 @@ import HomeInfo from "./HomeInfo";
 import "./HomeMain.css";
 import HomeAdress from "./HomeAdress";
 import HomeServices from "./HomeServices";
+import Footer from "../Footer/Footer";
 
 function HomeMain() {
   return (
+    <>
     <main>
 
     <section className="home-main container">
@@ -15,6 +17,8 @@ function HomeMain() {
       <HomeServices />
       <HomeAdress />
     </main>
+    <Footer />
+    </>
   );
 }
 

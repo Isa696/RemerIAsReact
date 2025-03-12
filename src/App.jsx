@@ -23,6 +23,7 @@ import ProductEdit from "./pages/ProductEdit";
 import EditProductWrapper from "./pages/EditProductWrapper";
 import Orders from "./pages/Orders";
 import OrderWrapper from "./component/orders/OrderWrapper";
+import BusinessPolicies from "./pages/BusinessPolicies ";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/explore/:category" element={<ExploreProduct />}></Route>
         <Route path="/product/:productId" element={<Product />}></Route>
+        <Route path="/politicas-del-negocio" element={<BusinessPolicies />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>

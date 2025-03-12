@@ -88,19 +88,54 @@ function ShippingAddress() {
   const navigate = useNavigate();
   const { sendMessage, loadingMsg } = useSendMessage();
 
-  // const formatOrderMessage = (order) => {
-  //   let message = 'Orden de Compra:\n\n';
-  //   order.forEach(item => {
-  //     message += `Producto: ${item.product}\nCantidad: ${item.quantity}\nPrecio: ${item.price}\n\n`;
-  //   });
-  //   return message;
-  // };
-
-  // const orderMessage = formatOrderMessage(formData);
-
-  const handleSendMessage = () => {
-    sendMessage();
-  };
+  function handleSendMessage(order) {
+    const formatOrderMessage = (order) => {
+      // Customer Info Section
+      let message = `Orden #${order.id}\n\n`;
+      message += `Información del Cliente\n`;
+      message += `Nombre: ${order.customerInfo.firstname} ${order.customerInfo.lastname}\n`;
+      message += `Email: ${order.customerInfo.email}\n`;
+      message += `Teléfono: ${order.customerInfo.phone}\n\n`;
+  
+      // Delivery Address Section
+      message += `Dirección de Entrega\n`;
+      message += `Provincia: ${order.customerInfo.province}\n`;
+      message += `Ciudad: ${order.customerInfo.city}\n`;
+      message += `Dirección: ${order.customerInfo.address}\n\n`;
+  
+      // Products Section
+      message += `Productos:\n`;
+      order.cart.forEach(item => {
+        message += `${item.title}\n`;
+        message += `Cantidad: ${item.qty}\n`;
+        message += `Precio: $${item.price}\n`;
+        message += `Subtotal: $${item.qty * item.price}\n\n`;
+      });
+  
+      // Order Summary
+      message += `Total: $${order.totalPrice}\n`;
+      message += `Estado: pending\n`;
+      message += `Fecha: ${new Date().toLocaleString('es-AR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })}\n`;
+  
+      // Notes (if any)
+      if (order.customerInfo.notes) {
+        message += `\nNotas:\n${order.customerInfo.notes}`;
+      }
+  
+      return message;
+    };
+  
+    const formattedMessage = formatOrderMessage(order);
+    console.log(formattedMessage);
+    // sendMessage(formattedMessage); // Uncomment when ready to send
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,7 +143,7 @@ function ShippingAddress() {
   };
 
   async function checkoutHandler() {
-    handleSendMessage();
+
     if (!validateForm()) {
       toast.error("Por favor completa todos los campos correctamente");
       return;
@@ -133,9 +168,9 @@ function ShippingAddress() {
     };
 
     const success = await createOrder(orderData);
-
+    
     if (success) {
-
+      handleSendMessage(orderData);
       resetForm();
       emptyCart();
       toast.success("Compra exitosa :D");
