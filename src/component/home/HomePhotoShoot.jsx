@@ -1,10 +1,7 @@
-import photo1 from "../../assets/images/home-photo-1.webp";
-import photo2 from "../..//assets/images/home-photo-2.webp";
-import photo3 from "../../assets/images/home-photo-3.webp";
 
 import "./HomePhotoShoot.css";
 
-function HomePhotoShoot() {
+function HomePhotoShoot({ photo1, photo2, photo3 }) {
   return (
     <div className="photoshoot-container">
       <span className="model-photo_wrapper boy">

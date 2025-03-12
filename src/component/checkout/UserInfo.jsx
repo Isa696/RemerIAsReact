@@ -143,6 +143,7 @@ function ShippingAddress() {
   };
 
   async function checkoutHandler() {
+    sendMessage()
 
     if (!validateForm()) {
       toast.error("Por favor completa todos los campos correctamente");
