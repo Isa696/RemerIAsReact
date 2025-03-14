@@ -177,3 +177,9 @@ select:focus {
   color: #666;
   font-size: 0.8rem;
 }
+
+.user-info-note {
+  color: #666;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}

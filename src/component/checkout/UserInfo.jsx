@@ -1,13 +1,12 @@
-import { useOrders } from "../../hooks/useOrders";
-import { useCartActions } from "../../store/Store";
 import { useCart } from "../../store/Store";
 import "./UserInfo.css";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { useCheckoutStore } from "../../store/Checkout";
 import { provinces } from "../../utils/provinces";
-import useSendMessage from "../../hooks/useSendMessage ";
 import Loader from "../loader/Loader";
+import MPBtn from "../MPBtn/MPBtn";
+import generateOrderId from "../../utils/generateOrderId";
+import { useState } from "react";
 
 function UserInfo() {
   return (
@@ -80,62 +79,14 @@ function ContactInformation() {
 }
 
 function ShippingAddress() {
-  const { formData, errors, setFormData, validateForm, resetForm } =
-    useCheckoutStore();
-  const { emptyCart } = useCartActions();
-  const { createOrder } = useOrders();
+  const { formData, errors, setFormData, validateForm, resetForm } = useCheckoutStore();
   const cart = useCart();
-  const navigate = useNavigate();
-  const { sendMessage, loadingMsg } = useSendMessage();
+  const [showMPBtn, setShowMPBtn] = useState(false);
 
-  function handleSendMessage(order) {
-    const formatOrderMessage = (order) => {
-      // Customer Info Section
-      let message = `Orden #${order.id}\n\n`;
-      message += `Información del Cliente\n`;
-      message += `Nombre: ${order.customerInfo.firstname} ${order.customerInfo.lastname}\n`;
-      message += `Email: ${order.customerInfo.email}\n`;
-      message += `Teléfono: ${order.customerInfo.phone}\n\n`;
-  
-      // Delivery Address Section
-      message += `Dirección de Entrega\n`;
-      message += `Provincia: ${order.customerInfo.province}\n`;
-      message += `Ciudad: ${order.customerInfo.city}\n`;
-      message += `Dirección: ${order.customerInfo.address}\n\n`;
-  
-      // Products Section
-      message += `Productos:\n`;
-      order.cart.forEach(item => {
-        message += `${item.title}\n`;
-        message += `Cantidad: ${item.qty}\n`;
-        message += `Precio: $${item.price}\n`;
-        message += `Subtotal: $${item.qty * item.price}\n\n`;
-      });
-  
-      // Order Summary
-      message += `Total: $${order.totalPrice}\n`;
-      message += `Estado: pending\n`;
-      message += `Fecha: ${new Date().toLocaleString('es-AR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      })}\n`;
-  
-      // Notes (if any)
-      if (order.customerInfo.notes) {
-        message += `\nNotas:\n${order.customerInfo.notes}`;
-      }
-  
-      return message;
-    };
-  
-    const formattedMessage = formatOrderMessage(order);
-    console.log(formattedMessage);
-    // sendMessage(formattedMessage); // Uncomment when ready to send
-  }
+  let totalPrice = cart.reduce((acc, cur) => {
+    return acc + cur.qty * cur.price;
+  }, 0);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -143,8 +94,6 @@ function ShippingAddress() {
   };
 
   async function checkoutHandler() {
-    sendMessage()
-
     if (!validateForm()) {
       toast.error("Por favor completa todos los campos correctamente");
       return;
@@ -153,29 +102,28 @@ function ShippingAddress() {
       toast.error("No hay productos.");
       return;
     }
-    let totalPrice = cart.reduce((acc, cur) => {
-      return acc + cur.qty * cur.price;
-    }, 0);
+
     if (totalPrice < 1) {
       toast.error("Precio total menor a 1.");
       return;
     }
-
-    // Crear la orden
+    // Guardar datos del pedido en localStorage
     const orderData = {
       cart,
       totalPrice,
       customerInfo: formData,
+      id: generateOrderId(),
+      createdAt: new Date().toLocaleString('es-AR')
     };
 
-    const success = await createOrder(orderData);
-    
-    if (success) {
-      handleSendMessage(orderData);
+    try {
+      localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+      setShowMPBtn(true);
+    } catch (error) {
+      console.error('Error saving order to localStorage:', error);
+      toast.error("Error al procesar la orden");
+    } finally {
       resetForm();
-      emptyCart();
-      toast.success("Compra exitosa :D");
-      navigate("/");
     }
   }
 
@@ -244,12 +192,18 @@ function ShippingAddress() {
             {formData.notes?.length || 0}/200 caracteres
           </small>
         </div>
-        {loadingMsg ? (
-          <Loader sizeLoader={24} colorLoader={"#851E87ff"} />
-        ) : (
+
+        <p className="user-info-note">Aclaración: El costo de envio es a cargo del comprador.<br/> Consultar al vendedor</p>
+        {!showMPBtn && (
           <button className="checkout-btn" onClick={checkoutHandler}>
             Comprar
           </button>
+        )}
+
+        {showMPBtn && (
+          <MPBtn
+            totalPrice={totalPrice}
+          />
         )}
       </div>
     </div>

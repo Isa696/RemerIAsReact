@@ -6,18 +6,6 @@ import useUserStore from '../store/User';
 export const useOrders = () => {
 
   const user = useUserStore(state => state.user);
-    const generateOrderId = () => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const length = 8;
-        let result = '';
-        
-        for (let i = 0; i < length; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          result += characters[randomIndex];
-        }
-        
-        return result;
-      };
 
       const dateOptions = {
         day: '2-digit',
@@ -35,12 +23,12 @@ export const useOrders = () => {
         return false;
       }
       // Crear referencia para la nueva orden
-      const orderId = generateOrderId();
-      const newOrderRef = ref(db, `orders/${orderId}`);
+      // const orderId = generateOrderId();
+      const newOrderRef = ref(db, `orders/${orderData.id}`);
 
       // Formatear la orden
       const order = {
-        id: orderId,
+        id: orderData.id,
         userId: user.uid,
         items: orderData.cart,
         totalPrice: orderData.totalPrice,

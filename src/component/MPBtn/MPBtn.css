@@ -1,0 +1,50 @@
+.mp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.mp-warning {
+  padding: 1rem;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
+  color: #856404;
+}
+
+.mp-warning p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.mp-warning ol {
+  margin: 0.5rem 0 0 1rem;
+  padding-left: 1rem;
+}
+
+.mp-button,
+.cho-container {
+  background-color: #009ee3;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.mp-button:hover {
+  background-color: #007eb5;
+}
+
+.mp-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cho-container {
+  width: 100%;
+}

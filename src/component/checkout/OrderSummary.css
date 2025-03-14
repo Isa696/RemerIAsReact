@@ -10,10 +10,9 @@
   margin-top: 30px;
 }
 .order-summary_container h3 {
-  font-size: 1.6rem;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
+  border-bottom: 1px solid var(--dark-green);
+
 }
 .order-summary {
   display: flex;
@@ -32,7 +31,7 @@
   text-align: right;
 }
 .order-total {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--yellow-green);
   align-self: flex-end;
 }
 .order-total span {

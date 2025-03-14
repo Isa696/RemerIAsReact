@@ -1,0 +1,21 @@
+h2 {
+    font-size: clamp(3.4rem, 4vw + 1rem, 5.2rem);
+    font-family: "Bebas Neue", sans-serif;
+    line-height: 1;
+    color: white;
+  }
+
+.success-p {
+    font-size: clamp(1.6rem, 2vw + 1rem, 2.4rem);
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 0;
+    text-align: center;
+  }

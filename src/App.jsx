@@ -24,6 +24,9 @@ import EditProductWrapper from "./pages/EditProductWrapper";
 import Orders from "./pages/Orders";
 import OrderWrapper from "./component/orders/OrderWrapper";
 import BusinessPolicies from "./pages/BusinessPolicies ";
+import Success from "./pages/Success";
+import Failure from "./pages/Failure";
+import Pending from "./pages/Pending";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +42,10 @@ const router = createBrowserRouter(
         <Route path="/product/edit/:id" element={<EditProductWrapper />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/orders/:userId" element={<OrderWrapper />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/failure" element={<Failure />} />
+        <Route path="/pending" element={<Pending />} />
+
     </Route>
   )
 );
