@@ -115,10 +115,41 @@ export const useProducts = () => {
     }
   };
 
+  const updateProductsStock = async (cart) => {
+    try {
+      const updatePromises = cart.map(async (item) => {
+        // First get current product data
+        const productRef = ref(db, `products/${item.id}`);
+        const snapshot = await get(productRef);
+        
+        if (!snapshot.exists()) {
+          throw new Error(`Producto ${item.id} no encontrado`);
+        }
+
+        const currentProduct = snapshot.val();
+        const newStock = currentProduct.stock - item.qty;
+
+        // Only update the stock field
+        await set(productRef, {
+          ...currentProduct,
+          stock: newStock
+        });
+      });
+
+      await Promise.all(updatePromises);
+      return true;
+    } catch (error) {
+      console.error('Error updating stock:', error);
+      toast.error('Error al actualizar el stock');
+      return false;
+    }
+  };
+
   return {
     deleteProduct,
     createProduct,
     addCategory,
-    updateProduct
+    updateProduct,
+    updateProductsStock
   };
 };

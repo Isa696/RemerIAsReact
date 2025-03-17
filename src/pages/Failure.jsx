@@ -4,8 +4,8 @@ import "./Success.css"
 function Failure() {
   return (
     <div className='home-info success-container home-main container'>
-        <h2>Error al procesar tu pago</h2>
-      <h3>Lo sentimos. </h3>
+        <h2>Error al procesar tu pago ❌</h2>
+      <h3>Lo sentimos. 😔</h3>
 
       <p className="success-p">
       Tu pago no pudo ser procesado

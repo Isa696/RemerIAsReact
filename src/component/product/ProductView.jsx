@@ -82,7 +82,7 @@ function ProductView({ productData }) {
 
         {
           !productData.stock ?
-          <p className="product-stock">Agotado</p> :
+          <p className="error-message">Agotado ⛔</p> :
           <button className="product-cart_btn" onClick={handleAddToCart}
           disabled={productData.stock <= quantityInCart}
           >

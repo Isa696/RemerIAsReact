@@ -96,8 +96,8 @@ function handleSendMessage(order) {
 
   return (
     <div className='home-info success-container home-main container'>
-        <h2>Pago pendiente</h2>
-      <h3>Su pago está siendo procesado.</h3>
+        <h2>Pago pendiente ⏳</h2>
+      <h3>Su pago está siendo procesado. 🤔</h3>
       <p className="success-p">
         Por favor, espere.
         Podrás revisar tu compra en la pestaña Historial

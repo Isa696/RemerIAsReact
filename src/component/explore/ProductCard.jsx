@@ -80,7 +80,7 @@ function ProductCard({ product }) {
         <h3>{product.title}</h3>
         <span className="product-card_bottom">
           {!product.stock ? (
-            <p className="product-stock">Agotado</p>
+            <p className="error-message">Agotado ⛔</p>
           ) : (
             <button
               className="add-cart_btn"
