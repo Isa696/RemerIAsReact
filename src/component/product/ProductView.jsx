@@ -1,4 +1,4 @@
-import { useCartActions } from "../../store/Store";
+import { useCart, useCartActions } from "../../store/Store";
 import { Pencil, ShoppingCart, Trash } from "phosphor-react";
 import "./ProductView.css";
 import toast from "react-hot-toast";
@@ -12,6 +12,7 @@ function ProductView({ productData }) {
     const { deleteProduct } = useProducts();
     const navigate = useNavigate();
   const { addToCart } = useCartActions();
+  const cart = useCart();
   if (!productData) {
     return null;
   }
@@ -45,6 +46,9 @@ function ProductView({ productData }) {
     });
   };
 
+      // Find the quantity of this product in the cart
+      const productInCart = cart.find((item) => item.id === productData.id);
+      const quantityInCart = productInCart ? productInCart.qty : 0;
   return (
     <div className="product-container">
               {isAdmin() && (
@@ -76,10 +80,16 @@ function ProductView({ productData }) {
         <p className="product-price">${productData.price}</p>
         <p className="product-description">{productData.description}</p>
 
-        <button className="product-cart_btn" onClick={handleAddToCart}>
+        {
+          !productData.stock ?
+          <p className="product-stock">Agotado</p> :
+          <button className="product-cart_btn" onClick={handleAddToCart}
+          disabled={productData.stock <= quantityInCart}
+          >
           Agregar al
           <ShoppingCart size={22} />
         </button>
+          }
       </div>
     </div>
   );

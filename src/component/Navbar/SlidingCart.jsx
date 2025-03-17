@@ -4,6 +4,7 @@ import { useCartActions } from "../../store/Store";
 import { useCart } from "../../store/Store";
 import toast from "react-hot-toast";
 import "./SlidingCart.css";
+import { useRef } from "react";
 
 function SlidingCart({ toggleShowCart }) {
   let cart = useCart();
@@ -60,8 +61,36 @@ function CartMain({ cart, addProductQuantity, removeFromCart }) {
 }
 
 function CartProducts({ product, addProductQuantity, removeFromCart }) {
+  const inputRef = useRef(null);
   function inputHandler(e) {
-    addProductQuantity(product.id, Number(e.target.value));
+    let newQty;
+    
+    // Handle direct input
+    if (e.target.value === '') {
+      newQty = 1;
+    } else {
+      // Parse input as integer
+      newQty = parseInt(e.target.value, 10);
+      
+      // Validate the number
+      if (isNaN(newQty)) {
+        newQty = 1;
+      }
+    }
+
+    // Apply limits
+    if (newQty > product.stock) {
+      newQty = product.stock;
+      toast.error(`Stock máximo disponible: ${product.stock}`);
+    } else if (newQty < 1) {
+      newQty = 1;
+    }
+
+    // Update input and cart
+    if (inputRef.current) {
+      inputRef.current.value = newQty;
+    }
+    addProductQuantity(product.id, newQty);
   }
 
   function removeProduct() {
@@ -80,8 +109,17 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
           <input
             type="number"
             value={product.qty}
+            max={9999}
+            min={1}
             onChange={inputHandler}
+            onKeyDown={(e) => {
+              // Prevent 'e' character input
+              if (e.key === 'e' || e.key === 'E') {
+                e.preventDefault();
+              }
+            }}
             id="qty"
+            ref={inputRef}
           />
         </p>
       </div>

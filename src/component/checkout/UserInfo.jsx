@@ -87,6 +87,8 @@ function ShippingAddress() {
     return acc + cur.qty * cur.price;
   }, 0);
 
+  console.log(cart);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,6 +96,14 @@ function ShippingAddress() {
   };
 
   async function checkoutHandler() {
+
+  // Check stock for each item in cart
+  const stockError = cart.some(item => item.qty > item.stock);
+  
+  if (stockError) {
+    toast.error("No hay stock suficiente para uno o más productos seleccionados");
+    return;
+  }
     if (!validateForm()) {
       toast.error("Por favor completa todos los campos correctamente");
       return;

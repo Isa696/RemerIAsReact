@@ -41,7 +41,6 @@
   font-weight: 600;
   font-size: 1.7rem;
   letter-spacing: -0.2px;
-  height: 40px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -113,4 +112,9 @@
 
 .product-card_wrapper {
   position: relative;
+}
+
+.add-cart_btn:disabled {
+  background-color: var(--light-magenta);
+  cursor: not-allowed;
 }

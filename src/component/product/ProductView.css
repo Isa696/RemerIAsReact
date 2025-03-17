@@ -155,3 +155,8 @@
 .product-card_wrapper {
   position: relative;
 }
+
+.product-cart_btn:disabled {
+  background-color: var(--light-magenta);
+  cursor: not-allowed;
+}

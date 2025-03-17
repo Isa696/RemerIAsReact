@@ -12,7 +12,12 @@ const useCartStore = create((set) => ({
         if (isAlreadyAdded) {
           newCartValue = state.cart.map((product) => {
             if (product.id === addedProduct.id) {
-              return { ...product, qty: product.qty + 1 };
+              // Check stock limit when adding
+              const newQty = product.qty + 1;
+              if (newQty > product.stock) {
+                return product; // Keep current quantity if exceeds stock
+              }
+              return { ...product, qty: newQty };
             }
             return product;
           });
@@ -31,7 +36,6 @@ const useCartStore = create((set) => ({
       });
     },
     addProductQuantity(id, newQty) {
-      if (newQty > 20) return;
       set((state) => {
         if (newQty < 0) {
           state.action.removeFromCart(id);
@@ -39,11 +43,14 @@ const useCartStore = create((set) => ({
         }
         let newCartValue = state.cart.map((product) => {
           if (product.id === id) {
+            // Only limit by actual stock
+            if (newQty > product.stock) {
+              return { ...product, qty: product.stock };
+            }
             return { ...product, qty: newQty };
           }
           return product;
         });
-        
         return { cart: newCartValue };
       });
     },

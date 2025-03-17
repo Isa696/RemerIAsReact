@@ -7,9 +7,9 @@ import Footer from "../Footer/Footer";
 import photo1 from "../../assets/images/home-photo-1.webp";
 import photo2 from "../..//assets/images/home-photo-2.webp";
 import photo3 from "../../assets/images/home-photo-3.webp";
-import tarot1 from "../../assets/images/tarot-1.webp";
-import tarot2 from "../../assets/images/tarot-2.webp";
-import tarot3 from "../../assets/images/tarot-3.webp";
+import tarot1 from "../../assets/images/tarot-1.jpg";
+import tarot2 from "../../assets/images/tarot-2.jpg";
+import tarot3 from "../../assets/images/tarot-3.jpg";
 
 
 function HomeMain() {

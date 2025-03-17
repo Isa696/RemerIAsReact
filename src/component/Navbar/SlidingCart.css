@@ -73,9 +73,19 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  input {
-    width: 5ch;
-  }
+}
+.cart-product_info .qty input[type="number"] {
+  width: 60px; /* Fixed width instead of ch units */
+  padding: 4px;
+  text-align: center;
+  -moz-appearance: textfield; /* Remove spinner for Firefox */
+}
+
+/* Optional: Style the spinner arrows */
+.cart-product_info .qty input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
+  background: transparent;
+  cursor: pointer;
 }
 .cart-product_price {
   position: absolute;
