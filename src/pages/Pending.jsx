@@ -101,7 +101,7 @@ function handleSendMessage(order) {
       <p className="success-p">
         Por favor, espere.
         Podrás revisar tu compra en la pestaña Historial
-        Ya enviamos el ticket al vendedor.
+        Ya enviamos el ticket al vendedor. 📨
         </p>
         <h3>
               <Link to="/">Volver al Inicio</Link>

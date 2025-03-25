@@ -105,7 +105,7 @@ function Success() {
       <h3>Su pago fue exitoso!!! 🎉</h3>
 
       <p className="success-p">
-        Estamos enviando el ticket al vendedor.🚀 Podras revisar tu compra en la
+        Estamos enviando el ticket al vendedor. 📨 Podras revisar tu compra en la
         pestaña Historial
       </p>
       <h3>
