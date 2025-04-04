@@ -36,6 +36,7 @@ export const useOrders = () => {
         status: 'pending',
         createdAt: new Date().toLocaleString('es-AR', dateOptions),
         notes: orderData.notes || '',
+        deliveryOption: orderData.deliveryOption,
       };
 
       // Guardar en Firebase

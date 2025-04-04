@@ -27,6 +27,8 @@ import BusinessPolicies from "./pages/BusinessPolicies ";
 import Success from "./pages/Success";
 import Failure from "./pages/Failure";
 import Pending from "./pages/Pending";
+import { useEffect } from "react";
+import { useProcessOrder } from "./hooks/useProcessOrder";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +53,12 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  const { processPendingOrder } = useProcessOrder();
+
+  useEffect(() => {
+    processPendingOrder();
+  }, []);
+
   return (
     <>
       <RouterProvider router={router} />

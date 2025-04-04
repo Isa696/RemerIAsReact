@@ -10,7 +10,7 @@ import Shimmer from "../component/shimmer/Shimmer";
 
 function ExploreProduct() {
   const [products, setProducts] = useState([]);
-  const [priceFlter, setPriceFilter] = useState("default");
+  const [priceFilter, setPriceFilter] = useState("default");
   const [categories, setCategories] = useState([]);
   const [checkBoxState, setCheckBoxState] = useState({});
   let { category } = useParams();
@@ -51,19 +51,24 @@ function ExploreProduct() {
       try {
         const res = await fetchFromApi("products");
         if (Array.isArray(res)) {
-          // Filter products based on selected categories
+          // Obtener las categorías seleccionadas
+          const selectedCategories = Object.entries(checkBoxState)
+            .filter(([_, isChecked]) => isChecked)
+            .map(([category]) => category.toLowerCase());
+  
+          // Filtrar productos basados en las categorías seleccionadas
           const filteredProducts = res.filter(product => {
-            const selectedCategories = Object.entries(checkBoxState)
-              .filter(([_, isChecked]) => isChecked)
-              .map(([category]) => category);
-
-            // If no categories selected, show all products
+            if (!Array.isArray(product.category)) return false; // Asegurar que es un array
+  
+            // Si no hay categorías seleccionadas, mostrar todos los productos
             if (selectedCategories.length === 0) return true;
-
-            // Return products that match selected categories
-            return selectedCategories.includes(product.category.toLowerCase());
+  
+            // Retornar productos que tengan al menos una categoría seleccionada
+            return product.category.some(cat => 
+              selectedCategories.includes(cat.toLowerCase())
+            );
           });
-
+  
           setProducts(filteredProducts);
         } else {
           console.error("Data is not an array:", res);
@@ -76,6 +81,7 @@ function ExploreProduct() {
     }
     getData();
   }, [checkBoxState]);
+  
 
   function handleCategoryCheckBox(e) {
     const { name, checked } = e.target;
@@ -102,11 +108,12 @@ function ExploreProduct() {
   return (
     <main className="product-main">
       <PriceFilter
-        priceFlter={priceFlter}
+        priceFilter={priceFilter}
         handlePriceFilter={handlePriceFilter}
       />
       <SelectCategory
         checkBoxState={checkBoxState}
+        setCheckBoxState={setCheckBoxState}
         handleCheckBox={handleCategoryCheckBox}
         categories={categories}
         products={products}

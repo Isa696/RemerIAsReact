@@ -11,27 +11,16 @@
   position: relative;
   justify-content: center;
   height: 90%;
+  align-items: center;
   height: clamp(260px, 90%, 380px);
-
-  border: none;
   width: var(--image-wrapper-width);
-  overflow: hidden;
-}
-.product-img_wrapper::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  width: 90%;
-  height: 90%;
-  z-index: -1;
-  border-radius: 32px;
+  box-shadow: 0px 0px 16px 4px #b5b5b52b;
 }
 .product-img_wrapper img {
-  margin-top: 40px;
-  width: 40%;
-  height: 70%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  width: 60%;
+  height: 90%;
   transition: all 0.2s;
   border: none;
 }
@@ -63,7 +52,7 @@
 .product-cart_btn {
   width: 20rem;
   padding: 1.4rem;
-  background-color: var(--dark-magenta);
+  background-color: var(--light-magenta);
   color: white;
   border: none;
   border-radius: 30px;
@@ -92,9 +81,6 @@
   }
   .product-img_wrapper::after {
     border-radius: 18px;
-  }
-  .product-img_wrapper img {
-    margin-top: 5%;
   }
   .product-info {
     width: 100%;
@@ -157,6 +143,167 @@
 }
 
 .product-cart_btn:disabled {
-  background-color: var(--light-magenta);
+  background-color: var(--dark-green);
   cursor: not-allowed;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--primary-background);
+  padding: 1rem;
+  border-radius: 8px;
+  height: 100%;
+}
+
+.size-select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.size-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.color-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.color-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.color-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.color-radio input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.blanco {
+  background-color: var(--black);
+  color: white;
+}
+.gris {
+  background-color: var(--yellow-green);
+  color: #767676 ;
+}
+.negro {
+  background-color: white;
+  color: var(--black);
+  opacity: 1;
+  border: 1px solid var(--black);
+}
+
+.back-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  z-index: 9999;
+}
+
+.back-button:hover {
+  color: var(--yellow-green);
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.slider-btn.prev {
+  left: 10px;
+}
+
+.slider-btn.next {
+  right: 10px;
+}
+
+.product-categories {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product-category {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* 🎨 Colores personalizados */
+.product-category.abstracto-minimalista {
+  background-color: #f0e68c;
+  color: #020e25;
+}
+
+.product-category.naturaleza-animales {
+  background-color: #6a994e;
+  color: #ffffff;
+}
+
+.product-category.paisajes {
+  background-color: #8ecae6;
+  color: #023047;
+}
+
+.product-category.fantasia-cienciaficcion {
+  background-color: #7b2cbf;
+  color: #e0aaff;
+}
+
+.product-category.retro-vintage {
+  background-color: #e07a5f;
+  color: #3d405b;
+}
+
+.product-category.musica {
+  background-color: #ff006e;
+  color: #ffffff;
 }

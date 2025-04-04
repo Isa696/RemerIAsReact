@@ -48,10 +48,16 @@ function OrderModal({ order, onClose, isOpen }) {
           <p><strong>Email:</strong> {order.customerInfo.email}</p>
           <p><strong>Teléfono:</strong> {order.customerInfo.phone}</p>
           
+          {
+            order.deliveryOption === "envio" && (
+              <>
           <h3>Dirección de Entrega</h3>
           <p><strong>Provincia:</strong> {order.customerInfo.province}</p>
           <p><strong>Ciudad:</strong> {order.customerInfo.city}</p>
           <p><strong>Dirección:</strong> {order.customerInfo.address}</p>
+              </>
+            )
+          }
           
           <h3>Productos</h3>
           <div className="order-items">
@@ -60,6 +66,8 @@ function OrderModal({ order, onClose, isOpen }) {
                 <img src={item.image} alt={item.title} />
                 <div>
                   <p>{item.title}</p>
+                  {item.newColor && <p>Color: {item.newColor}</p>}
+                  {item.size && <p>Talle: {item.size}</p>}
                   <p>Cantidad: {item.qty}</p>
                   <p>Precio: ${item.price}</p>
                 </div>

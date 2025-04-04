@@ -28,7 +28,8 @@
   padding: 10px 0px;
 }
 .cart-top h2 {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
+  color: var(--dark-magenta);
 }
 .close-shopping-cart {
   position: absolute;
@@ -114,7 +115,11 @@
   p {
     font-size: 1.6rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: right;
     text-align: right;
+    height: 100%;
   }
 
   a {
@@ -136,5 +141,6 @@
   }
   a:hover {
     background-color: #303030;
+    color: var(--yellow-green);
   }
 }

@@ -62,6 +62,12 @@ function CartMain({ cart, addProductQuantity, removeFromCart }) {
 
 function CartProducts({ product, addProductQuantity, removeFromCart }) {
   const inputRef = useRef(null);
+  console.log('Product in cart:', {
+    id: product.id,
+    title: product.title,
+    size: product.size,
+    newColor: product.newColor
+  });
   function inputHandler(e) {
     let newQty;
     
@@ -104,12 +110,21 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
       <div className="cart-product_info">
         <h3>{product.title}</h3>
         <p>Categoría: {product.category}</p>
+        {product.size && <p>Talle: {product.size.join(", ")}</p>}
+        {product.newColor && <p className={`${product.newColor.join(" ").toLowerCase()}`}>
+          Color: {product.newColor.join(", ")}</p>}
+
+        {(product.title.toLowerCase().includes("remera")) ?
+        <p className="qty">
+          Cantidad: {product.qty}
+        </p>
+        :
         <p className="qty">
           Cantidad:
           <input
             type="number"
             value={product.qty}
-            max={9999}
+            max={20}
             min={1}
             onChange={inputHandler}
             onKeyDown={(e) => {
@@ -120,8 +135,9 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
             }}
             id="qty"
             ref={inputRef}
-          />
+            />
         </p>
+          }
       </div>
       <p className="cart-product_price">
         ${(product.price * product.qty).toFixed(2)}

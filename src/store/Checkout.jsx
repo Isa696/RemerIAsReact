@@ -9,6 +9,7 @@ export const store = createStore((set) => ({
     province: '',
     city: '',
     address: '',
+    postalCode: '',
     phone: '',
     notes: '',
   },
@@ -26,16 +27,17 @@ export const store = createStore((set) => ({
       province: '',
       city: '',
       address: '',
+      postalCode: '',
       phone: '',
       notes: '',
     },
     errors: {}
   }),
-  validateForm: () => {
+  validateForm: (deliveryOption) => {
     const state = store.getState();
     const { formData } = state;
     const newErrors = {};
-
+  
     // Validaciones de ContactInformation
     if (!formData.firstname.trim()) {
       newErrors.firstname = 'El nombre es requerido';
@@ -47,26 +49,31 @@ export const store = createStore((set) => ({
     if (!formData.email.trim() || !emailRegex.test(formData.email)) {
       newErrors.email = 'Email válido requerido';
     }
-
-    // Validaciones de ShippingAddress
-    if (!formData.province.trim()) {
-      newErrors.province = 'Provincia requerida';
-    }
-    if (!formData.city.trim()) {
-      newErrors.city = 'Ciudad requerida';
-    }
-    if (!formData.address.trim()) {
-      newErrors.address = 'Dirección requerida';
-    }
     if (!formData.phone.trim()) {
       newErrors.phone = 'Teléfono requerido';
     } else if (isNaN(formData.phone)) {
       newErrors.phone = 'Teléfono solo números';
     } else if (formData.phone.length < 6) {
-      newErrors.phone = 'Teléfono minimo 6 digitos';
+      newErrors.phone = 'Teléfono mínimo 6 dígitos';
     }
-
-    set({ errors: newErrors });
+  
+    // Validaciones de ShippingAddress solo si es "envio"
+    if (deliveryOption === "envio") {
+      if (!formData.province.trim()) {
+        newErrors.province = 'Provincia requerida';
+      }
+      if (!formData.city.trim()) {
+        newErrors.city = 'Ciudad requerida';
+      }
+      if (!formData.address.trim()) {
+        newErrors.address = 'Dirección requerida';
+      }
+      if (!formData.postalCode.trim()) {
+        newErrors.postalCode = 'Codigo Postal requerida';
+      }
+    }
+  
+    store.setState({ errors: newErrors });
     return Object.keys(newErrors).length === 0;
   }
 }));

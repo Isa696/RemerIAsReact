@@ -79,7 +79,7 @@ const MPBtn = ({ totalPrice }) => {
           body: JSON.stringify({
             items: [
               {
-                title: "Compra Web El Paraíso",
+                title: "Compra Web Remerias",
                 quantity: 1,
                 unit_price: numericTotalPrice,
                 currency_id: "ARS",

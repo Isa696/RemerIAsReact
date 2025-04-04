@@ -15,11 +15,11 @@ function HomeAdress() {
         Donde estamos?
         </h2>
         <p>
-        Ubicada sobre la avenida principal del centro comercial del barrio “Las tunas”. <br /><br />📍Av. Constituyentes 3142, General Pacheco, Tigre.
+        Estamos en Villa Adelina, Partido de San Isidro, Buenos Aires, Argentina.📍
         </p>
 
       <h3>Nuestros Horarios </h3>
-      <p>Lunes a Viernes<br />9:00 a 13:00 y 17:00 a 20:30</p>
+      <p>Lunes a Viernes<br />9:00 a 20:00</p>
       <button className="explore-clothing_btn">
         <a          href={whatsAppUrl}
                     target="_blank"
@@ -58,7 +58,7 @@ function HomeAdress() {
 
     <div className="map-container">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3290.151233517665!2d-58.6729895!3d-34.4483087!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bca3bda76a52cd%3A0x4d0b0310a6654157!2zU2FudGVyw61hIEVsIFBhcmHDrXNv!5e0!3m2!1ses!2sar!4v1739999527770!5m2!1ses!2sar"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26300.27423967821!2d-58.56687541927933!3d-34.51468937108782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb0a31e03db41%3A0xaf1fd10506421428!2sB1607%20Villa%20Adelina%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1742951436562!5m2!1ses!2sar"
             width="100%"
             height="450"
             style={{ border: 0 }}

@@ -5,7 +5,7 @@ function Loader({sizeLoader, colorLoader}) {
 
   return (
     <div className="loader-container">
-    <Hourglass size={sizeLoader || 96} color={colorLoader || "#c2a8d8"} className="animate-spin"/>
+    <Hourglass size={sizeLoader || 96} color={colorLoader || "#a4a9ad"} className="animate-spin"/>
     <p>Cargando...</p>
   </div>
   )

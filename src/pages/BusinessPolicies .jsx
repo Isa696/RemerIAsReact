@@ -15,7 +15,9 @@ const BusinessPolicies = () => {
         </p>
         <p className="success-p">
           Si tiene preguntas o inquietudes acerca de cómo manejamos sus datos, no dude en
-          contactarnos en <a href="mailto:elparaisosanteria@gmail.com">elparaisosanteria@gmail.com</a>.
+          contactarnos en <a href="mailto:isaias92@hotmail.com.ar"
+                    style={{ color: 'blue', textDecoration: 'underline' }}
+          >Click aqui</a>.
         </p>
       </section>
 
@@ -64,7 +66,9 @@ const BusinessPolicies = () => {
         </ul>
         <p className="success-p">
           Para iniciar una devolución, contáctenos en{' '}
-          <a href="mailto:elparaisosanteria@gmail.com">elparaisosanteria@gmail.com</a>.
+          <a href="mailto:isaias92@hotmail.com.ar"
+          style={{ color: 'blue', textDecoration: 'underline' }}
+          >Click aqui</a>.
         </p>
       </section>
     </div>

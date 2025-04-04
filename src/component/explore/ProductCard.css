@@ -1,5 +1,5 @@
 .product-card_wrapper {
-  background-color: var(--magnolia);
+  /* background-color: white; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,7 +55,7 @@
 }
 .add-cart_btn {
   border: none;
-  background-color: var(--dark-magenta);
+  background-color: var(--magnolia);
   color: white;
   padding: 6px 10px;
   font-size: 1.4rem;
@@ -73,6 +73,7 @@
 
 .product-card_price {
   font-size: 1.8rem;
+  color: white;
 }
 
 .product-card_admin-buttons {

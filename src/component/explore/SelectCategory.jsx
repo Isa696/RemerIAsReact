@@ -1,24 +1,28 @@
 import { useState } from "react";
 import "./SelectCategory.css";
+import { Eraser } from "phosphor-react";
 
-function SelectCategory({ categories, checkBoxState, handleCheckBox, products }) {
+function SelectCategory({ categories, checkBoxState, setCheckBoxState, handleCheckBox, products }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const activeCategories = categories.filter(category =>
-    products.some(product =>
-      product.category === category && !product.deleted
-    )
+  // Determinar qué categorías tienen productos activos
+  const activeCategories = new Set(
+    products.flatMap(product => (Array.isArray(product.category) ? product.category : [product.category]))
   );
 
   function handleCategoryClick() {
     setIsOpen(!isOpen);
   }
 
+  const clearFilters = () => {
+    setCheckBoxState({});
+  };
+
   return (
     <div className="select-category_container">
-      <h4 onClick={handleCategoryClick}>Categorias</h4>
+      <h4 onClick={handleCategoryClick}>Categorías</h4>
       <div className={isOpen ? "open" : ""}>
-      {activeCategories.map((category) => (
+        {categories.map((category) => (
           <span key={category} className="category-option">
             <input
               type="checkbox"
@@ -26,12 +30,19 @@ function SelectCategory({ categories, checkBoxState, handleCheckBox, products })
               name={category.toLowerCase()}
               checked={checkBoxState[category.toLowerCase()] || false}
               onChange={handleCheckBox}
+              disabled={!activeCategories.has(category)}
             />
             <label htmlFor={`category-${category.toLowerCase()}`}>
               {category}
             </label>
           </span>
         ))}
+        <hr />
+              {/* Botón de limpiar filtros */}
+              <button className="clear-filters-btn" onClick={clearFilters}>
+  <Eraser size={18} weight="light" />
+  Limpiar Filtros
+</button>
       </div>
     </div>
   );

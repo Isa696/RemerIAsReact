@@ -58,17 +58,15 @@
   }
   
   .image-preview {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: contain;
-    margin-top: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    margin-left: 0.5rem;
   }
   
   .submit-btn {
     background-color: var(--yellow-green);
-    color: white;
+    color: black;
     padding: 1rem;
     border: none;
     border-radius: 4px;
@@ -101,8 +99,8 @@
   
   .add-category-btn {
     padding: 8px 16px;
-    background: var(--yellow-green);
-    color: white;
+    background: var(--dark-magenta);
+    color: black;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -110,7 +108,7 @@
   }
 
   .add-category-btn:hover {
-    filter: brightness(1.1);
+    filter: brightness(0.8);
   }
 
   /* Estilos móviles */
@@ -130,12 +128,12 @@
   .categories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
   }
   
   .category-card {
-    padding: 12px;
+    padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     text-align: center;
@@ -147,12 +145,14 @@
   .category-card:hover {
     border-color: var(--yellow-green);
     transform: translateY(-2px);
+    background: var(--yellow-green);
+    border-color: var(--yellow-green);
   }
   
   .category-card.selected {
-    background: var(--yellow-green);
+    background-color: #007bff;
     color: white;
-    border-color: var(--yellow-green);
+    border-color: #007bff;
   }
   
   .add-new {
@@ -164,8 +164,8 @@
   }
   
   .add-new:hover {
-    border-color: var(--yellow-green);
-    color: var(--yellow-green);
+    border-color: var(--dark-green);
+    color: var(--light-magenta);
   }
   
   .new-category-input {
@@ -184,7 +184,7 @@
   .add-category-btn {
     padding: 8px 16px;
     background: var(--yellow-green);
-    color: white;
+    color: black;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -198,4 +198,57 @@
     .new-category-input {
       flex-direction: column;
     }
+  }
+  
+  /* Estilos para el contenedor de colores */
+  .color-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .color-checkbox input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  .images-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .image-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .image-input-group input {
+    flex: 1;
+  }
+
+  .remove-image-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .add-image-btn {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #f0f0f0;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .add-image-btn:hover {
+    background: #e0e0e0;
   }

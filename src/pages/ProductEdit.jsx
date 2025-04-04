@@ -14,11 +14,11 @@ function ProductEdit({ product }) {
   const navigate = useNavigate();
   const [productData, setProductData] = useState({
     title: product?.title || "",
-    category: product?.category || "",
+    category: Array.isArray(product?.category) ? product?.category : [product?.category || ""],
     description: product?.description || "",
-    image: product?.image || "",
+    image: Array.isArray(product?.image) ? product?.image : [product?.image || ""],
     price: product?.price || "",
-    stock: product?.stock || "",
+    color: product?.color ? [product.color] : [],
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function ProductEdit({ product }) {
         description: product.description || "",
         image: product.image || "",
         price: product.price || "",
-        stock: product.stock || "",
+        color: product.color || "",
       });
     }
   }, [product]);
@@ -50,14 +50,24 @@ function ProductEdit({ product }) {
 
     const success = await addCategory(newCategory);
     if (success) {
-      setCategories(prev => [...prev, newCategory]);
-      setProductData(prev => ({
+      setCategories((prev) => [...prev, newCategory]);
+      setProductData((prev) => ({
         ...prev,
-        category: newCategory
+        category: [...prev.category, newCategory],
       }));
       setShowNewCategory(false);
       setNewCategory("");
     }
+  };
+
+  const handleCategoryChange = (category) => {
+    setProductData((prev) => ({
+      ...prev,
+      category: prev.category.includes(category)
+        ? prev.category.filter((c) => c !== category)
+        : [...prev.category, category],
+    }));
+    setShowNewCategory(false);
   };
 
   const handleChange = (e) => {
@@ -75,8 +85,7 @@ function ProductEdit({ product }) {
     if (
       !productData.title ||
       !productData.price ||
-      !productData.stock ||
-      !productData.category ||
+      productData.category.length === 0 ||
       !productData.description ||
       !productData.image
     ) {
@@ -88,7 +97,6 @@ function ProductEdit({ product }) {
       const formattedData = {
         ...productData,
         price: Number(productData.price),
-        stock: Number(productData.stock),
       };
 
       let success;
@@ -110,6 +118,40 @@ function ProductEdit({ product }) {
     }
   };
 
+  const handleImageChange = (index, value) => {
+    setProductData(prev => {
+      const newImages = [...prev.image];
+      newImages[index] = value;
+      return {
+        ...prev,
+        image: newImages
+      };
+    });
+  };
+
+  const addNewImage = () => {
+    setProductData(prev => ({
+      ...prev,
+      image: [...prev.image, ""]
+    }));
+  };
+  
+  const removeImage = (index) => {
+    setProductData(prev => ({
+      ...prev,
+      image: prev.image.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleColorChange = (color) => {
+    setProductData((prev) => ({
+      ...prev,
+      color: prev.color.includes(color)
+        ? prev.color.filter((c) => c !== color)
+        : [...prev.color, color],
+    }));
+  };
+
   return (
     <div className="product-edit">
       <button className="close-btn" onClick={() => navigate("/explore/all")}>
@@ -119,23 +161,44 @@ function ProductEdit({ product }) {
       <h2>{product ? "Editar Producto" : "Crear Producto"}</h2>
 
       <form onSubmit={handleSubmit} className="product-edit-form">
-        <div className="form-group">
-          <label>Imagen del Producto (URL)</label>
-          <input
-            type="url"
-            name="image"
-            value={productData.image}
-            onChange={handleChange}
-            placeholder="https://ejemplo.com/imagen.jpg"
+      <div className="form-group">
+  <label>Imágenes del Producto (URLs)</label>
+  <div className="images-container">
+    {productData.image.map((url, index) => (
+      <div key={index} className="image-input-group">
+        <input
+          type="url"
+          value={url}
+          onChange={(e) => handleImageChange(index, e.target.value)}
+          placeholder="https://ejemplo.com/imagen.jpg"
+        />
+        {productData.image.length > 1 && (
+          <button 
+            type="button" 
+            className="remove-image-btn"
+            onClick={() => removeImage(index)}
+          >
+            <X size={16} />
+          </button>
+        )}
+        {url && (
+          <img
+            src={url}
+            alt={`Preview ${index + 1}`}
+            className="image-preview"
           />
-          {productData.image && (
-            <img
-              src={productData.image}
-              alt="Preview"
-              className="image-preview"
-            />
-          )}
-        </div>
+        )}
+      </div>
+    ))}
+    <button
+      type="button"
+      className="add-image-btn"
+      onClick={addNewImage}
+    >
+      + Agregar otra imagen
+    </button>
+  </div>
+</div>
 
         <div className="form-group">
           <label>Título*</label>
@@ -150,61 +213,47 @@ function ProductEdit({ product }) {
         </div>
 
         <div className="form-group category-container">
-          <label>Categoría*</label>
-          <div className="categories-grid">
-          {categories.map((category) => (
-  <div
-    key={category}
-    className={`category-card ${
-      productData.category === category ? "selected" : ""
-    }`}
-    onClick={() => {
-      setProductData((prev) => ({
-        ...prev,
-        category: prev.category === category ? "" : category,
-      }));
-      setShowNewCategory(false); // Desactivar nueva categoría al seleccionar una existente
-    }}
-  >
-    {category}
+  <label>Categorías*</label>
+  <div className="categories-grid">
+    {categories.map((category) => (
+      <div
+        key={category}
+        className={`category-card ${
+          productData.category.includes(category) ? "selected" : ""
+        }`}
+        onClick={() => handleCategoryChange(category)}
+      >
+        {category}
+      </div>
+    ))}
+    <div
+      className={`category-card add-new ${
+        showNewCategory ? "selected" : ""
+      }`}
+      onClick={() => setShowNewCategory(!showNewCategory)}
+    >
+      + Nueva categoría
+    </div>
   </div>
-))}
-<div
-  className={`category-card add-new ${
-    showNewCategory ? "selected" : ""
-  }`}
-  onClick={() => {
-    setShowNewCategory(!showNewCategory);
-    if (!showNewCategory) {
-      setProductData((prev) => ({
-        ...prev,
-        category: "",
-      }));
-    }
-  }}
->
-  + Nueva categoría
-</div>
-          </div>
 
-          {showNewCategory && (
-            <div className="new-category-input">
-              <input
-                type="text"
-                value={newCategory}
-                onChange={(e) => setNewCategory(e.target.value)}
-                placeholder="Nueva categoría"
-              />
-              <button
-                type="button"
-                className="add-category-btn"
-                onClick={handleNewCategory}
-              >
-                Agregar
-              </button>
-            </div>
-          )}
-        </div>
+  {showNewCategory && (
+    <div className="new-category-input">
+      <input
+        type="text"
+        value={newCategory}
+        onChange={(e) => setNewCategory(e.target.value)}
+        placeholder="Nueva categoría"
+      />
+      <button
+        type="button"
+        className="add-category-btn"
+        onClick={handleNewCategory}
+      >
+        Agregar
+      </button>
+    </div>
+  )}
+</div>
 
         <div className="form-group">
           <label>Descripción</label>
@@ -234,23 +283,25 @@ function ProductEdit({ product }) {
           </div>
 
           <div className="form-group">
-            <label>Stock*</label>
-            <input
-              type="number"
-              name="stock"
-              value={productData.stock}
-              onChange={handleChange}
-              required
-              min="0"
-              placeholder="0"
-              maxLength={6}
-            />
+            <label>Colores Disponibles</label>
+            <div className="color-options">
+              {["Blanco", "Negro", "Gris"].map((color) => (
+                <label key={color} className="color-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={productData.color.includes(color)}
+                    onChange={() => handleColorChange(color)}
+                  />
+                  {color}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
         <button type="submit" className="submit-btn">
-        {product ? "Actualizar Producto" : "Crear Producto"}
-      </button>
+          {product ? "Actualizar Producto" : "Crear Producto"}
+        </button>
       </form>
     </div>
   );

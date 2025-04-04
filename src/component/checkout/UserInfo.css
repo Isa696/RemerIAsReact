@@ -25,7 +25,8 @@
 }
 
 /* Email ocupa 100% */
-.input-group:nth-child(3) {
+.input-group:nth-child(3),
+.input-group:nth-child(4) {
   flex: 0 1 100%;
 }
 
@@ -51,6 +52,7 @@
   border-color: #e95555;
 }
 .error-message {
+  display: inline-block;
   color: red;
   font-weight: 700;
   font-size: 1.2rem;
@@ -70,7 +72,8 @@
   color: var(--magnolia);
 }
 .shipping-address_wrapper,
-.contact-info_wrapper {
+.contact-info_wrapper,
+.delivery-options_wrapper {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -174,12 +177,82 @@ select:focus {
 }
 
 .char-count {
-  color: #666;
+  color: var(--dark-green);
   font-size: 0.8rem;
 }
 
 .user-info-note {
-  color: #666;
+  color: var(--yellow-green);
   font-size: 1.5rem;
   margin-top: 0.5rem;
+}
+
+.label-delivery {
+  font-size: 1.4rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  color: var(--magnolia);
+  font-weight: 700;
+}
+
+.selected {
+  background-color: var(--yellow-green);
+  color: var(--black);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.checkout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.checkout-modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-modal img {
+  max-width: 100%;
+  height: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.proceed-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.proceed-btn:hover {
+  background-color: #0056b3;
 }
