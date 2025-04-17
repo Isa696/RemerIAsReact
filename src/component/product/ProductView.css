@@ -45,6 +45,7 @@
 .product-description {
   font-size: 1.7rem;
   color: white;
+  white-space: pre-line;
 }
 .product-description::first-letter {
   text-transform: capitalize;
@@ -226,7 +227,7 @@
   font-size: 1.6rem;
   cursor: pointer;
   transition: color 0.2s ease-in-out;
-  z-index: 9999;
+  z-index: 9;
 }
 
 .back-button:hover {

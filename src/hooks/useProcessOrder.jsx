@@ -3,7 +3,7 @@ import { useOrders } from "./useOrders";
 import toast from "react-hot-toast";
 import useSendMessage from "./useSendMessage ";
 
-export const useProcessOrder = () => {
+export const useProcessOrder = ({ paymentStatus }) => {
   const { emptyCart } = useCartActions();
   const { createOrder } = useOrders();
   const { sendMessage } = useSendMessage();
@@ -37,6 +37,7 @@ export const useProcessOrder = () => {
 
     message += `Total: $${order.totalPrice}\n`;
     message += `Estado: pending\n`;
+    message += `Pago: ${paymentStatus}\n`;
     message += `Fecha: ${new Date().toLocaleString("es-AR", {
       day: "2-digit",
       month: "2-digit",
@@ -56,20 +57,27 @@ export const useProcessOrder = () => {
   const processPendingOrder = async () => {
     try {
       const orderDataString = localStorage.getItem("pendingOrder");
-      if (!orderDataString) {
-        return false;
-      }
-
+      if (!orderDataString) return false;
+      
       const orderData = JSON.parse(orderDataString);
-      const success = await createOrder(orderData);
+      // Ya se procesó esta orden
+    if (orderData.processed) {
+      localStorage.removeItem("pendingOrder");
+      return false;
+    }
+
+      const success = await createOrder({...orderData , paymentStatus: paymentStatus});
 
       if (success) {
         const formattedMessage = formatOrderMessage(orderData);
-        sendMessage(formattedMessage);
+        sendMessage();
         console.log(formattedMessage);
-        localStorage.removeItem("pendingOrder");
+        localStorage.setItem("pendingOrder", JSON.stringify({
+          ...orderData,
+          processed: true
+        }));
         emptyCart();
-        toast.success("¡Compra exitosa! :D");
+        toast.success(`Orden creada exitosamente. Pago: ${paymentStatus}`);
         return true;
       }
     } catch (error) {

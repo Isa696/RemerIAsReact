@@ -67,7 +67,7 @@ function ProductCard({ product }) {
       )}
       <Link to={`/product/${product.id}`}>
         <div className="product-card_img">
-          <img src={product?.image} />
+          <img src={product?.image[0]} />
         </div>
       </Link>
       <div className="product-card_description">

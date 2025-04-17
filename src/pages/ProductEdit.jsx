@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { X } from "phosphor-react";
 import { useProducts } from "../hooks/useProducts";
 import fetchCategories from "../utils/fetchCategories";
+import ImageInputList from "../component/ImageInputList";
+import { useRouteProtection } from "../hooks/useRouteProtection";
 
 function ProductEdit({ product }) {
   const [categories, setCategories] = useState([]);
@@ -20,6 +22,14 @@ function ProductEdit({ product }) {
     price: product?.price || "",
     color: product?.color ? [product.color] : [],
   });
+    const {checkAdminAccess } = useRouteProtection();
+  
+    useEffect(() => {
+      const authorized = checkAdminAccess();
+      if (!authorized) {
+        return;
+      }
+    }, []);
 
   useEffect(() => {
     if (product) {
@@ -162,42 +172,16 @@ function ProductEdit({ product }) {
 
       <form onSubmit={handleSubmit} className="product-edit-form">
       <div className="form-group">
-  <label>Imágenes del Producto (URLs)</label>
-  <div className="images-container">
-    {productData.image.map((url, index) => (
-      <div key={index} className="image-input-group">
-        <input
-          type="url"
-          value={url}
-          onChange={(e) => handleImageChange(index, e.target.value)}
-          placeholder="https://ejemplo.com/imagen.jpg"
-        />
-        {productData.image.length > 1 && (
-          <button 
-            type="button" 
-            className="remove-image-btn"
-            onClick={() => removeImage(index)}
-          >
-            <X size={16} />
-          </button>
-        )}
-        {url && (
-          <img
-            src={url}
-            alt={`Preview ${index + 1}`}
-            className="image-preview"
-          />
-        )}
-      </div>
-    ))}
-    <button
-      type="button"
-      className="add-image-btn"
-      onClick={addNewImage}
-    >
-      + Agregar otra imagen
-    </button>
-  </div>
+      <label>Imágenes del Producto</label>
+
+<ImageInputList
+  images={productData.image}
+  setImages={(newImages) =>
+    setProductData((prev) => ({ ...prev, image: newImages }))
+  }
+/>
+
+
 </div>
 
         <div className="form-group">

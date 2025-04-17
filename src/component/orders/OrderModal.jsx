@@ -63,7 +63,7 @@ function OrderModal({ order, onClose, isOpen }) {
           <div className="order-items">
             {order.items.map(item => (
               <div key={item.id} className="order-item">
-                <img src={item.image} alt={item.title} />
+                <img src={item.image[0]} alt={item.title} />
                 <div>
                   <p>{item.title}</p>
                   {item.newColor && <p>Color: {item.newColor}</p>}
@@ -78,7 +78,7 @@ function OrderModal({ order, onClose, isOpen }) {
           <div className="order-summary">
             <p><strong>Total:</strong> ${order.totalPrice}</p>
             <p><strong>Estado:</strong> {order.status}</p>
-            <p><strong>Fecha:</strong> {order.createdAt}</p>
+            <p><strong>Pago:</strong> {order.paymentStatus}</p>
             {order.customerInfo.notes && (
               <>
                 <p><strong>Notas:</strong></p>

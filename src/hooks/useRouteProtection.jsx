@@ -1,5 +1,5 @@
+// utils/useRouteProtection.jsx
 import { useNavigate } from 'react-router-dom';
-import { validateToken } from '../utils/validateToken';
 import useUserStore from '../store/User';
 import toast from 'react-hot-toast';
 
@@ -8,12 +8,10 @@ export const useRouteProtection = () => {
   const user = useUserStore(state => state.user);
 
   const checkAccess = () => {
-    // Limpiar cualquier toast existente
     toast.remove();
 
-    // Verificar usuario y token
-    if (!user?.email || !validateToken()) {
-      toast.error('Debes iniciar sesión para acceder al checkout');
+    if (!user?.email || !user?.uid) {
+      toast.error('Debes iniciar sesión para acceder a esta sección');
       navigate('/login');
       return false;
     }
@@ -21,5 +19,17 @@ export const useRouteProtection = () => {
     return true;
   };
 
-  return { checkAccess };
+  const checkAdminAccess = () => {
+    toast.remove();
+  
+    if (!user?.isAdmin) {
+      toast.error('Acceso restringido a administradores');
+      navigate('/');
+      return false;
+    }
+  
+    return true;
+  };
+
+  return { checkAccess, checkAdminAccess };
 };

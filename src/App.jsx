@@ -27,8 +27,10 @@ import BusinessPolicies from "./pages/BusinessPolicies ";
 import Success from "./pages/Success";
 import Failure from "./pages/Failure";
 import Pending from "./pages/Pending";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useProcessOrder } from "./hooks/useProcessOrder";
+import Shippings from "./pages/Shippings";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,17 +49,34 @@ const router = createBrowserRouter(
         <Route path="/success" element={<Success />} />
         <Route path="/failure" element={<Failure />} />
         <Route path="/pending" element={<Pending />} />
+        <Route path="/shippings" element={<Shippings />} />
+        <Route path="/reset-password" element={<ForgotPassword />} />
 
     </Route>
   )
 );
 
 function App() {
-  const { processPendingOrder } = useProcessOrder();
+  const { processPendingOrder } = useProcessOrder({ paymentStatus: "pendiente revisión" });
+  const hasProcessedRef = useRef(false);
 
   useEffect(() => {
+    if (hasProcessedRef.current) return;
+  
+    const orderDataString = localStorage.getItem("pendingOrder");
+    if (!orderDataString) return;
+  
+    const orderData = JSON.parse(orderDataString);
+  
+    if (orderData.processed) {
+      localStorage.removeItem("pendingOrder");
+      return;
+    }
+
+    hasProcessedRef.current = true;
     processPendingOrder();
   }, []);
+  
 
   return (
     <>

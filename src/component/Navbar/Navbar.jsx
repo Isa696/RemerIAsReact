@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
 import SlidingCart from "./SlidingCart";
 import "./Navbar.css";
-import logoNav from "../../assets/images/logo-nav.jpg";
+import logoNav from "../../assets/images/logo-nav.png";
 import useUserStore from "../../store/User";
 import toast from "react-hot-toast";
 
@@ -63,7 +63,7 @@ function Navigations({ toggleShowCart }) {
     <nav className={`nav container ${isNavOpen ? "nav-open" : ""}`}>
       <span className="brand-name">
         <NavLink to="/">
-          <img src={logoNav} alt="Santeria el paraiso" className="brand-name" />
+          <img src={logoNav} alt="RemerIAs, diseños con Inteligencia Artificial" className="brand-name" />
           </NavLink>
       </span>
       <ul className="nav-link_container">
@@ -84,6 +84,7 @@ function Navigations({ toggleShowCart }) {
           )}
         </li>
           {(user?.email && user?.isAdmin) &&
+          <>
             <li className="nav-link"
             onClick={() => setIsNavOpen(false)}
             >
@@ -91,6 +92,14 @@ function Navigations({ toggleShowCart }) {
               New Product
             </NavLink>
                 </li>
+            <li className="nav-link"
+            onClick={() => setIsNavOpen(false)}
+            >
+            <NavLink to="/shippings">
+              Envios
+            </NavLink>
+                </li>
+              </>
             }
             {(user?.isAdmin) &&
         <li className="nav-link"

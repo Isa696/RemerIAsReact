@@ -56,6 +56,7 @@
   }
   
   .login-btn:hover {
+    color: black;
     background-color: var(--yellow-green);
   }
   

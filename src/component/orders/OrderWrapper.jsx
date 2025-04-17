@@ -10,14 +10,12 @@ function OrderWrapper() {
     const { userId } = useParams();
     const [orders, setOrders] = useState(null);
       const { checkAccess } = useRouteProtection();
-      const [isAuthorized, setIsAuthorized] = useState(false);
       const { getOrders } = useOrders();
       const [loading, setLoading] = useState(true);
 
     
   useEffect(() => {
     const authorized = checkAccess();
-    setIsAuthorized(authorized);
 
     if (authorized) {
       const loadOrders = async () => {
@@ -29,9 +27,6 @@ function OrderWrapper() {
     }
   }, []);
 
-  if (!isAuthorized) {
-    return null;
-  }
 
     return (
         <>

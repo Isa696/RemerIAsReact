@@ -13,7 +13,7 @@
 }
 .explore-clothing_btn {
   margin-top: 26px;
-  background-color: var(--dark-magenta);
+  background-color: var(--magnolia);
   border: none;
   border-radius: 8px;
   a {
@@ -21,10 +21,13 @@
     padding: 10px 14px;
     display: inline-block;
     font-weight: 500;
-    color: white;
+    color: var(--black);
     cursor: pointer;
   }
 }
+.explore-clothing_btn:hover {
+    background-color: var(--yellow-green);
+  }
 
 @media (max-width: 850px) {
   .info-txt p {

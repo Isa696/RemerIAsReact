@@ -49,7 +49,7 @@ function LoginForm() {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Iniciar Sesión</h2>
+        <h2 style={{ color: "black" }}>Iniciar Sesión</h2>
 
         <div className="form-group">
           <input
@@ -85,6 +85,7 @@ function LoginForm() {
         <Link to="/register" className="register-link">
           ¿No tienes cuenta? Regístrate aquí
         </Link>
+        <Link to="/reset-password" className="register-link">Olvidaste tu contraseña? Recuperar Contraseña</Link>
       </form>
     </div>
   );

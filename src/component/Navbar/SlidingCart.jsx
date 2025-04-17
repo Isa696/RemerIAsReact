@@ -106,7 +106,7 @@ function CartProducts({ product, addProductQuantity, removeFromCart }) {
 
   return (
     <div className="cart-product">
-      <img src={product.image} />
+      <img src={product.image[0]} />
       <div className="cart-product_info">
         <h3>{product.title}</h3>
         <p>Categoría: {product.category}</p>

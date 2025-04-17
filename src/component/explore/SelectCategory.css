@@ -79,8 +79,6 @@
     }
   }
 }
-@media (max-width: 550px) {
-}
 
 input[type="checkbox"]:disabled + label {
   opacity: 0.5;
@@ -120,3 +118,9 @@ input[type="checkbox"]:disabled {
   transform: rotate(360deg);
 }
 
+@media (max-width: 800px) {
+  .clear-filters-btn {
+    color: var(--black);
+    border: solid 1px var(--black);
+  }
+}

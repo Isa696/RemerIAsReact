@@ -2,10 +2,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductEdit from "./ProductEdit";
 import fetchFromApi from "../utils/fetchFromApi";
+import { useRouteProtection } from "../hooks/useRouteProtection";
 
 function EditProductWrapper() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+    const {checkAdminAccess } = useRouteProtection();
+  
+    useEffect(() => {
+      const authorized = checkAdminAccess();
+      if (!authorized) {
+        return;
+      }
+    }, []);
 
   useEffect(() => {
     const loadProduct = async () => {

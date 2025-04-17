@@ -6,9 +6,11 @@ import { provinces } from "../../utils/provinces";
 // import Loader from "../loader/Loader";
 import MPBtn from "../MPBtn/MPBtn";
 import generateOrderId from "../../utils/generateOrderId";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import imgCheckout from "../../assets/images/img-checkout.png";
 import { X } from "phosphor-react";
+import { ref, get } from "firebase/database";
+import { db } from "../../utils/firebaseConfig";
 
 
 function UserInfo() {
@@ -18,6 +20,7 @@ function UserInfo() {
   const [showMPBtn, setShowMPBtn] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const cart = useCart();
+  const [shippingCost, setShippingCost] = useState(0);
 
   let totalPrice = cart.reduce((acc, cur) => {
     return acc + cur.qty * cur.price;
@@ -73,7 +76,10 @@ function UserInfo() {
 
     setShowModal(true);
     try {
-      localStorage.setItem("pendingOrder", JSON.stringify(orderData));
+      localStorage.setItem("pendingOrder", JSON.stringify({
+        ...orderData,
+        processed: false
+      }));
     } catch (error) {
       console.error("Error saving order to localStorage:", error);
       toast.error("Error al procesar la orden");
@@ -90,6 +96,7 @@ function UserInfo() {
   const handleDeliveryChange = (option) => {
     setDeliveryOption(option);
     setShowMPBtn(false);
+    option === "retiro" && setShippingCost(0);
   };
   return (
     <div className="user-info_container">
@@ -142,6 +149,8 @@ function UserInfo() {
           cart={cart}
           totalPrice={totalPrice}
           handleChange={handleChange}
+          shippingCost={shippingCost}
+          setShippingCost={setShippingCost}
         />
       )}
 
@@ -165,7 +174,7 @@ function UserInfo() {
   </div>
 )}
 
-      {showMPBtn && <MPBtn totalPrice={totalPrice} />}
+      {showMPBtn && <MPBtn totalPrice={totalPrice + shippingCost} />}
     </div>
   );
 }
@@ -257,7 +266,33 @@ function ShippingAddress({
   cart,
   totalPrice,
   handleChange,
+  shippingCost,
+  setShippingCost,
 }) {
+
+  useEffect(() => {
+    const fetchShippingCost = async () => {
+      if (formData.province) {
+        try {
+          const provinceKey = formData.province.trim(); // aseguramos sin espacios accidentales          
+          const snapshot = await get(ref(db, `shipping_costs/${provinceKey}`));
+          
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            toast.success("Costo de envío obtenido: $" +  data.cost);
+            setShippingCost(data.cost);
+          } else {
+            setShippingCost(null);
+          }
+        } catch (error) {
+          toast.error("Error al obtener el costo de envío:", error);
+          setShippingCost(null);
+        }
+      }
+    };
+
+    fetchShippingCost();
+  }, [formData.province]);
   return (
     <div className="shipping-address_container">
       <h3>Dirección de Entrega</h3>
@@ -332,9 +367,12 @@ function ShippingAddress({
           </small>
         </div>
 
-        <p className="user-info-note">
-          Aclaración: El costo de envio depende de la ubicación de entrega.
+        <p className="user-info-note" style={{ textAlign: "center" }}>
+          <strong>Aclaración:</strong> <br /> El costo de envio depende de la ubicación de entrega. <br /> Tiempo estimado de 2 a 5 dias habiles
         </p>
+        {shippingCost !== 0 && (
+          <h3 className="user-info-note">Costo de envío: ${shippingCost}</h3>
+        )}
       </div>
     </div>
   );

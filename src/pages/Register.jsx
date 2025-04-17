@@ -80,7 +80,7 @@ function Register() {
   return (
     <div className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
-        <h2>Crear Cuenta</h2>
+        <h2 style={{ color: "black" }}>Crear Cuenta</h2>
         
         <div className="form-group">
           <input

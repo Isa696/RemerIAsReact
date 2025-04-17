@@ -1,28 +1,44 @@
 import { useEffect } from 'react';
-import { validateToken } from '../../utils/validateToken';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../utils/firebaseConfig';
+import { fetchAdmins } from '../../utils/fetchAdmins';
 import useUserStore from '../../store/User';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function AuthWrapper({ children }) {
-  const { logout } = useUserStore();
+  const { user, logout } = useUserStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkToken = () => {
-      const isValidToken = validateToken();
-      if (!isValidToken) {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        try {
+          const token = await firebaseUser.getIdToken();
+          const adminUIDs = await fetchAdmins(); // Ahora devuelve un objeto { uid1: true, uid2: true }
+          const isAdmin = !!adminUIDs[firebaseUser.uid];
+
+          useUserStore.setState({
+            user: {
+              email: firebaseUser.email,
+              uid: firebaseUser.uid,
+              isAdmin,
+            },
+            idToken: token,
+          });
+        } catch (err) {
+          console.error("Error cargando datos del usuario:", err);
+          toast.error("Hubo un problema al cargar tu sesión.");
+        }
+      } else {
         logout();
-        navigate('/login');
-        toast.error('Sesión expirada, por favor inicia sesión nuevamente');
+        navigate("/login");
+        toast.error("Sesión cerrada o expirada, por favor inicia sesión nuevamente.");
       }
-    };
+    });
 
-    // Verificar token cada 5 minutos
-    const interval = setInterval(checkToken, 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, [logout]);
+    return () => unsubscribe();
+  }, [logout, navigate]);
 
   return children;
 }

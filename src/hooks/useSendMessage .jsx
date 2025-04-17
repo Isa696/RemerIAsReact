@@ -22,7 +22,6 @@ const useSendMessage = () => {
         language: { code: 'en_US' }
       }
     };
-    console.log('Payload:', JSON.stringify(payload));
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',

@@ -30,7 +30,7 @@ function HomeAdress() {
       </button>
                       </div>
             <div className="network-container info-txt">
-            <h2>Seguinos en nuestras redes!!!</h2>
+            <h2>Seguinos en!!!</h2>
             <div className="networks">
               <a
                 href="https://www.instagram.com/estilo.clothing/"
@@ -42,16 +42,7 @@ function HomeAdress() {
                   src="https://img.icons8.com/color/48/000000/instagram-new.png"
                   alt="Instagram" />
               </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61561157242609"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Seguirnos en Facebook"
-              >
-                <img
-                  src="https://img.icons8.com/color/48/000000/facebook-new.png"
-                  alt="Facebook" />
-              </a>
+              <p>@RemerIas_ok</p>
             </div>
           </div>
         </article>

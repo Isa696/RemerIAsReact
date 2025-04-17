@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom"
 import "./Success.css"
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useProcessOrder } from "../hooks/useProcessOrder";
 
 function Pending() {
-const { processPendingOrder } = useProcessOrder();
+const { processPendingOrder } = useProcessOrder({ paymentStatus: "pendiente" });
+  const hasProcessedRef = useRef(false);
 
 useEffect(() => {
-processPendingOrder();
+  if (hasProcessedRef.current) return;
+
+  hasProcessedRef.current = true;
+  processPendingOrder();
 }, []);
 
 

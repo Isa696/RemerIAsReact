@@ -84,8 +84,9 @@
 .checkout-btn {
   width: 60%;
   padding: 10px;
-  background-color: black;
-  color: white;
+  background-color: var(--magnolia);
+  color: var(--black);
+  font-weight: 700;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -93,7 +94,7 @@
   font-size: 1.4rem;
 }
 .checkout-btn:hover {
-  background-color: #303030;
+  background-color: var(--primary-background); 
 }
 
 textarea {
@@ -184,7 +185,7 @@ select:focus {
 .user-info-note {
   color: var(--yellow-green);
   font-size: 1.5rem;
-  margin-top: 0.5rem;
+  margin: 0.5rem auto;
 }
 
 .label-delivery {

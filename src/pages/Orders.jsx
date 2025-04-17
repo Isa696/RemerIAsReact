@@ -40,15 +40,6 @@ function Orders({ orders: ordersProp }) {
     }
   }, [isAdmin, location.pathname]);
 
-  if (!isAuthorized && orders.length === 0) {
-    return (
-      <div className="orders-page">
-        <h1>Historial de compras</h1>
-        <h2>No hay órdenes para mostrar :(</h2>
-      </div>
-    );
-  }
-
   const handleOpenModal = (order) => {
     setSelectedOrder(order);
     setIsModalOpen(true);
@@ -83,6 +74,12 @@ function Orders({ orders: ordersProp }) {
       {loading ? (
         <Loader />
       ) : (
+        (orders.length === 0) ?
+            <div className="orders-page">
+              <h1>Historial de compras</h1>
+              <h2>No hay órdenes para mostrar :(</h2>
+            </div>
+                :
         <div className="orders-page">
           <h1>Historial de compras</h1>
           <div className="orders-container">

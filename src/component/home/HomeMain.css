@@ -35,15 +35,49 @@
 
 /* Hero Section */
 .hero-section {
-  background: var(--dark-magenta);
+  background-image:url(../../assets/images/banner-bg.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
-  padding: 6rem 0;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
+
+
+.hero-swiper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.hero-swiper img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.6) drop-shadow(0 0 10px rgb(255, 255, 255, 0.5));
+  z-index: -1;
+}
+
+.containerBanner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
 
 .title {
   font-size: 4rem;
   font-weight: bold;
   animation: leBlurIn 0.3s ease-in;
+  padding: 2rem;
 }
 
 .leBlurIn span { animation-name: leBlurIn }
@@ -56,7 +90,7 @@
 }
 .subtitle {
   font-size: 1.8rem;
-  margin-top: 1rem;
+  margin: 2rem;
 }
 
 .cta-button {
@@ -101,11 +135,12 @@
 
 .card:hover {
   transform: translateY(-5px);
+  background: var(--primary-background);
 }
 
 .card h3 {
   font-size: 2rem;
-  color: var(--yellow-green);
+  color: white;
   width: fit-content;
   margin: 1rem auto;
   display: flex;
@@ -120,9 +155,42 @@
   margin-top: 1rem;
 }
 
-.image-placeholder {
-  height: 200px;
-  background: var(--magnolia);
-  border-radius: 5px;
-  margin-bottom: 1rem;
+.how-it-works-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.how-it-works-content p {
+  color: white;
+  max-width: 450px;
+}
+
+.how-it-works-content img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.how-it-works-content img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive para pantallas grandes */
+@media (min-width: 768px) {
+  .how-it-works-content {
+    flex-direction: row;
+  }
+
+  .how-it-works-content img {
+    width: 200px;
+    height: 200px;
+  }
 }

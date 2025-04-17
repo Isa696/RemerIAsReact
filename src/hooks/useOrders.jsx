@@ -37,6 +37,7 @@ export const useOrders = () => {
         createdAt: new Date().toLocaleString('es-AR', dateOptions),
         notes: orderData.notes || '',
         deliveryOption: orderData.deliveryOption,
+        paymentStatus: orderData.paymentStatus
       };
 
       // Guardar en Firebase
