@@ -1,7 +1,0 @@
-{
-    "functions": {
-      "api/createPreference.js": {
-        "runtime": "vercel-node@18"
-      }
-    }
-  }
