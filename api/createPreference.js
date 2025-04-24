@@ -1,11 +1,10 @@
-
-const mercadopago = require("mercadopago");
+import mercadopago from "mercadopago";
 
 mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN, // Variable sin VITE_ y oculta al frontend
+  access_token: process.env.MP_ACCESS_TOKEN,
 });
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Método no permitido" });
   }
@@ -35,4 +34,4 @@ module.exports = async (req, res) => {
     console.error(err);
     return res.status(500).json({ error: "Error al crear preferencia" });
   }
-};
+}

@@ -1,8 +1,7 @@
 {
     "functions": {
-      "api/*.cjs": {
-        "runtime": "nodejs18.x"
+      "api/createPreference.js": {
+        "runtime": "vercel-node@18"
       }
     }
   }
-  
