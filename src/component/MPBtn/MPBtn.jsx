@@ -39,83 +39,55 @@ const MPBtn = ({ totalPrice }) => {
 
   const handlePayment = async () => {
     setIsLoading(true);
+    if (await checkAdBlocker()) { /* … */ }
   
-    const blocked = await checkAdBlocker();
-    if (blocked) {
-      toast.error(
-        "Por favor desactiva el bloqueador de anuncios para continuar con el pago",
-        { duration: 5000 }
-      );
+    await loadMercadoPago();
+    const mp = new window.MercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY, { locale: "es-AR" });
+  
+    // Crear preferencia en tu backend
+    const res = await fetch("/api/createPreference", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price: numericTotalPrice }),
+    });
+    const data = await res.json();
+  
+    if (!res.ok) {
+      toast.error("Error al generar la preferencia de pago");
       setIsLoading(false);
       return;
     }
   
-    try {
-      await loadMercadoPago();
-    } catch (initError) {
-      toast.error("Error al inicializar Mercado Pago");
-      console.warn("MP init error:", initError);
-      setIsLoading(false);
-      return;
-    }
-  
-    const mp = new window.MercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY, {
-      locale: "es-AR",
+    // **Usa data.id, no data.preference_id**
+    mp.checkout({
+      preference: { id: data.id },
+      render: {
+        container: ".cho-container",
+        label: "Continuar en Mercado Pago",
+      },
+      autoOpen: true,
     });
   
-    try {
-      // 👉 Llamada a la Serverless Function que crea la preferencia
-      const response = await fetch("/api/createPreference", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price: numericTotalPrice }),
-      });
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        console.error("Error creando preferencia:", data);
-        toast.error("Error al generar la preferencia de pago");
-        return;
-      }
-  
-      // 👇 Ahora tenemos el preferenceId del backend
-      const preferenceId = data.preference_id;
-  
-      mp.checkout({
-        preference: {
-          id: preferenceId,
-        },
-        render: {
-          container: ".cho-container",
-          label: "Continuar en Mercado Pago",
-        },
-        autoOpen: true,
-      });
-  
-      setMpButtonRendered(true);
-    } catch (error) {
-      console.error("Error al procesar el pago:", error);
-      toast.error("Error al procesar el pago");
-    } finally {
-      setIsLoading(false);
-    }
+    setMpButtonRendered(true);
+    setIsLoading(false);
   };
-  
 
   return (
     <div className="mp-container">
-      {!mpButtonRendered ? (
-        <button
-          className="mp-button"
-          onClick={handlePayment}
-          disabled={isLoading}
-        >
-          {isLoading ? "Procesando..." : "Pagar con Mercado Pago"}
-        </button>
-      ) : (
-        <span className="cho-container"></span>
-      )}
+      <button
+        className="mp-button"
+        onClick={handlePayment}
+        disabled={isLoading || mpButtonRendered}
+      >
+        {isLoading
+          ? "Procesando..."
+          : mpButtonRendered
+            ? null
+            : "Pagar con Mercado Pago"}
+      </button>
+
+      {/* Contenedor siempre presente para que MercadoPago lo inyecte */}
+      <div className="cho-container"></div>
       {isBlocked && (
         <div className="mp-warning">
           <p>⚠️ Detectamos un bloqueador de anuncios activo</p>
