@@ -39,7 +39,7 @@ const MPBtn = ({ totalPrice }) => {
 
   const handlePayment = async () => {
     setIsLoading(true);
-    // Check for ad blocker first
+  
     const blocked = await checkAdBlocker();
     if (blocked) {
       toast.error(
@@ -49,90 +49,59 @@ const MPBtn = ({ totalPrice }) => {
       setIsLoading(false);
       return;
     }
-      try {
-        await loadMercadoPago();
-      } catch (initError) {
-        toast.error(
-          "Por favor desactiva el bloqueador de anuncios para continuar"
-        );
-        console.warn("MercadoPago initialization error:", initError);
+  
+    try {
+      await loadMercadoPago();
+    } catch (initError) {
+      toast.error("Error al inicializar Mercado Pago");
+      console.warn("MP init error:", initError);
+      setIsLoading(false);
+      return;
+    }
+  
+    const mp = new window.MercadoPago(import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY, {
+      locale: "es-AR",
+    });
+  
+    try {
+      // 👉 Llamada a la Serverless Function que crea la preferencia
+      const response = await fetch("/api/createPreference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price: numericTotalPrice }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        console.error("Error creando preferencia:", data);
+        toast.error("Error al generar la preferencia de pago");
         return;
       }
-
-      const mp = new window.MercadoPago(
-        import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY,
-        {
-          locale: "es-AR",
-        }
-      );
-
-      // Create preference
-      const accessToken = import.meta.env.VITE_MERCADO_PAGO_ACCESS_TOKEN;
-      const response = await fetch(
-        "https://api.mercadopago.com/checkout/preferences",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            items: [
-              {
-                title: "Compra Web Remerias",
-                quantity: 1,
-                unit_price: numericTotalPrice,
-                currency_id: "ARS",
-              },
-            ],
-            back_urls: {
-              success: window.location.origin + "/success",
-              failure: window.location.origin + "/failure",
-              pending: window.location.origin + "/pending",
-            },
-            auto_return: "approved",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error creating preference:", errorData);
-        throw new Error("Error creating preference");
-      }
-
-      const { id: preferenceId } = await response.json();
-
-      try {
-        // Initialize checkout with error handling
-        try {
-          mp.checkout({
-            preference: {
-              id: preferenceId,
-            },
-            render: {
-              container: ".cho-container",
-              label: "Continuar en Mercado Pago",
-            },
-            autoOpen: true, // Abre el checkout automáticamente
-          });
-    
-          setMpButtonRendered(true);
-
-        } catch (checkoutError) {
-          setMpButtonRendered(false);
-          toast.error("Error al procesar el pago. Por favor intenta de nuevo");
-          console.warn("Checkout initialization error:", checkoutError);
-        }
-
+  
+      // 👇 Ahora tenemos el preferenceId del backend
+      const preferenceId = data.preference_id;
+  
+      mp.checkout({
+        preference: {
+          id: preferenceId,
+        },
+        render: {
+          container: ".cho-container",
+          label: "Continuar en Mercado Pago",
+        },
+        autoOpen: true,
+      });
+  
+      setMpButtonRendered(true);
     } catch (error) {
-      setMpButtonRendered(false);
+      console.error("Error al procesar el pago:", error);
       toast.error("Error al procesar el pago");
-      console.error("Payment error:", error);
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="mp-container">
