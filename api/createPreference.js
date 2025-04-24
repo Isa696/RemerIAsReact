@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
       auto_return: "approved",
     });
 
-    return res.status(200).json({ preference_id: preference.body.id  });
+    return res.status(200).json({ id: preference.body.id });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Error al crear preferencia" });
