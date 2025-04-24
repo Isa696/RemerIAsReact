@@ -40,7 +40,6 @@ export default async function handler(req, res) {
 
     // Devolvemos la respuesta con el ID de la preferencia
     return res.status(200).json({ id: response.id });
-    console.log("Respuesta completa de MP:", response);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Error al crear preferencia" });

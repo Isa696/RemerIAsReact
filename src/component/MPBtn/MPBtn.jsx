@@ -87,7 +87,7 @@ const MPBtn = ({ totalPrice }) => {
       </button>
 
       {/* Contenedor siempre presente para que MercadoPago lo inyecte */}
-      <div className="cho-container"></div>
+      {/* <div className="cho-container"></div> */}
       {isBlocked && (
         <div className="mp-warning">
           <p>⚠️ Detectamos un bloqueador de anuncios activo</p>
