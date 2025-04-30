@@ -34,7 +34,7 @@ const Hero = () => (
     {/* Texto encima */}
     <div className="containerBanner text-center">
       <h1 className="title">
-        Remeras y Tazas <br /> diseñadas con Inteligencia Artificial
+        Remeras<br /> diseñadas con Inteligencia Artificial
       </h1>
       <p className="subtitle">Arte + Tecnología en cada prenda</p>
       <button className="cta-button">
