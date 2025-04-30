@@ -41,7 +41,7 @@ function OrderModal({ order, onClose, isOpen }) {
           <X size={24} />
         </button>
 
-        <h2>Orden #{order.id}</h2>
+        <h2 style={{color: "black"}}>Orden #{order.id}</h2>
         <div className="modal-details">
           <h3>Información del Cliente</h3>
           <p><strong>Nombre:</strong> {order.customerInfo.firstname} {order.customerInfo.lastname}</p>
