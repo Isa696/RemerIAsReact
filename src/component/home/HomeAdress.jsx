@@ -33,7 +33,7 @@ function HomeAdress() {
             <h2>Seguinos en!!!</h2>
             <div className="networks">
               <a
-                href="https://www.instagram.com/estilo.clothing/"
+                href="https://www.instagram.com/remerias_ok/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Seguirnos en Instagram"
@@ -42,7 +42,9 @@ function HomeAdress() {
                   src="https://img.icons8.com/color/48/000000/instagram-new.png"
                   alt="Instagram" />
               </a>
+              <a href="https://www.instagram.com/remerias_ok/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" >
               <p>@RemerIas_ok</p>
+              </a>
             </div>
           </div>
         </article>
