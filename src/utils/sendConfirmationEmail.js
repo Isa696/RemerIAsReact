@@ -1,9 +1,15 @@
 import toast from "react-hot-toast";
 
-const sendConfirmationEmail = async () => {
+const sendConfirmationEmail = async (htmlContent) => {
     try {
       const response = await fetch('/api/sendMail', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            html: htmlContent,
+          }),
       });
   
       const data = await response.json();
