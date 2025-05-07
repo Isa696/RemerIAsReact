@@ -185,7 +185,7 @@ export const useProcessOrder = ({ paymentStatus }) => {
       const success = await createOrder({...orderData , paymentStatus: paymentStatus});
 
       if (success) {
-        const orderHtml = formatOrderHTML(orderData);
+        const orderHtml = formatOrderHTML(orderData, paymentStatus);
         sendConfirmationEmail(orderHtml);
         const formattedMessage = formatOrderMessage(orderData);
         console.log(formattedMessage);
