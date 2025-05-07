@@ -17,8 +17,8 @@ export default async function handler(req, res) {
           'Authorization': `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: 'Remerias <onboarding@resend.dev>',
-          to: ['isaias92@hotmail.com.ar'],  // 👈 Aquí pon el correo destino dinámico o fijo
+          from: 'RemerIAs <onboarding@resend.dev>',
+          to: ['isaias69696@gmail.com'],
           subject: 'Nueva compra RemerIAs',
           html: '<strong>Nueva compra</strong>',
         }),
