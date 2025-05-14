@@ -9,8 +9,8 @@ function PriceFilter({ priceFilter, handlePriceFilter }) {
         <option value="default" disabled hidden>
           Elige una opción
         </option>
-        <option value="high-to-low">Remeras</option>
-        <option value="low-to-high">Tazas</option>
+        <option value="high-to-low">mayor precio</option>
+        <option value="low-to-high">menor precio</option>
       </select>
     </div>
   );
